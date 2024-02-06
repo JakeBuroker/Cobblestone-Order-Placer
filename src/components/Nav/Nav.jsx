@@ -24,9 +24,7 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-
-
-          
+ 
           </>
         )}
 
@@ -56,8 +54,6 @@ function Nav() {
   <LogOutButton className="navLink" />
   </button>
 )}
-        
-
         
       </div>
     </div>
