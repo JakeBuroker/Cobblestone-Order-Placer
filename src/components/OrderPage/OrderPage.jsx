@@ -46,19 +46,20 @@ function OrderPage() {
 
   return (
     <main>
-      <Grid container spacing={2}>
+      <Grid container spacing = {1}>
         {menu.map((item) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
+          <Grid item xs={12} sm={6} md={3} lg={2} key={item.id}>
             <Card
               sx={{
-                height: '100%',
+                height: '94%',
+                width: '50%'
               }}
             >
               <CardMedia
                 component="img"
                 src={`/images/${item.url}`}
                 sx={{
-                  height: 225,
+                  height: 150,
                 }}
               />
               <CardContent>
@@ -78,14 +79,14 @@ function OrderPage() {
                     label="Details"
                     variant="filled"
                     sx={{
-                      borderRadius: '75%',
+                      borderRadius: '40%',
                       cursor: 'pointer', 
                     }}
                     onClick={() => openModal(item)} 
                   />
                   <Button
-                    variant="outlined"
-                    size="medium"
+                    variant="filled"
+                    size="small"
                     sx={{
                       marginTop: '10px',
                     }}
