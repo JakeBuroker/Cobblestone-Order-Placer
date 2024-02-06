@@ -5,21 +5,18 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import ContactPage from '../ContactPage/ContactPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import MenuPage from '../MenuPage/MenuPage';
+import OrderPage from '../OrderPage/OrderPage';
 import './App.css';
 
 function App() {
@@ -60,13 +57,29 @@ function App() {
             <UserPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
+          <Route
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/contact"
           >
-            <InfoPage />
-          </ProtectedRoute>
+            <ContactPage />
+          </Route>
+
+          <Route
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/menu"
+          >
+            <MenuPage />
+          </Route>
+
+          <Route
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/order"
+          >
+            <OrderPage />
+          </Route>
 
           <Route
             exact
