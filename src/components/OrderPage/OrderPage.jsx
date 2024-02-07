@@ -46,13 +46,22 @@ function OrderPage() {
     setModalOpen(false);
   };
 
-  const openDrawer = () => {
-    setDrawerOpen(true);
-  };
-
   const closeDrawer = () => {
     setDrawerOpen(false);
   };
+
+  const handleAdd = (item) => {
+
+    dispatch({ type: 'ADD', 
+    payload: {
+      id: item.menu_item_id ,
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      url: item.url
+    } })
+  
+    }
 
   return (
     <main style={{ display: 'flex', justifyContent: 'space-between', marginTop: '3%' }}>
@@ -60,9 +69,9 @@ function OrderPage() {
         <CategorySelector />
        </div>
       <div style={{ width: '80%' }}>
-        <Grid container spacing={0.75}>
+        <Grid  container spacing={0.75}>
           {menu.map((item) => (
-            <Grid item xs={12} sm={6} md={4} lg={2.8} key={item.id}>
+            <Grid key={item.id} item xs={12} sm={6} md={4} lg={2.8} >
               <Card
                 sx={{
                   border: '2px solid',
@@ -110,7 +119,7 @@ function OrderPage() {
                         color: "white",
                         backgroundColor:"#087c69"
                       }}
-                        onClick={() => openDrawer()}
+                        onClick={() => handleAdd(item)}
                     />
                    </div>
                 </CardContent>
