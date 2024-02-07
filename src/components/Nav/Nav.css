@@ -13,10 +13,10 @@
 }
 
 .nav-title {
-  font-size: 26px;
+  font-size: 210%;
   font-weight: 700;
   color: #f2f2f2;
-  padding-left: 25px; 
+  padding-left: 25px; /* Increase padding-left */
 }
 
 .navLink {
@@ -26,10 +26,11 @@
   text-align: center;
   padding: 10px 3px;
   text-decoration: none;
-  font-size: 20px;
+  margin-top:7px ; 
+  font-size: 23px;
 
   /* Add margin-left to move links to the right */
-  margin-left: 30px;
+  margin-left: 28px;
 
   /* these last two make the logout button in
   the nav bar look like another link */

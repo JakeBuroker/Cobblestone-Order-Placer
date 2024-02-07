@@ -7,15 +7,17 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
+import Drawer from '@mui/material/Drawer';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { DialogContent, Dialog, buttonBaseClasses } from '@mui/material';
+import CategorySelector from '../CategorySelector/CategorySelector'
 
 function OrderPage() {
   const dispatch = useDispatch();
   const menu = useSelector((store) => store.menu);
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     fetchMenu();
@@ -44,15 +46,23 @@ function OrderPage() {
     setModalOpen(false);
   };
 
+  const openDrawer = () => {
+    setDrawerOpen(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerOpen(false);
+  };
+
   return (
     <main style={{ display: 'flex', justifyContent: 'space-between', marginTop: '3%' }}>
-      <div style={{ width: '30%'  }}>
-       
-      </div>
-      <div style={{ width: '70%' }}>
+      <div style={{ width: '20%' }}>
+        <CategorySelector />
+       </div>
+      <div style={{ width: '80%' }}>
         <Grid container spacing={0.75}>
           {menu.map((item) => (
-            <Grid item xs={12} sm={6} md={4} lg={2} key={item.id}>
+            <Grid item xs={12} sm={6} md={4} lg={2.8} key={item.id}>
               <Card
                 sx={{
                   border: '2px solid',
@@ -66,7 +76,7 @@ function OrderPage() {
                     height: 150,
                   }}
                 />
-                <CardContent>
+                 <CardContent>
                   <Typography
                     variant="body1"
                     nowrap="true"
@@ -81,35 +91,48 @@ function OrderPage() {
                   <div style={{ textAlign: 'center' }}>
                     <Chip 
                       label="Details"
-                      variant="filled"
                       sx={{
                         borderRadius: '35%',
                         cursor: 'pointer',
                         marginRight: '5px',
-                        marginTop: '10px'
+                        marginTop: '10px',
+                        color: 'white',
+                        backgroundColor:"black"
                       }}
                       onClick={() => openModal(item)}
                     />
-               
-           <Chip
+                    <Chip
                       label="Add"
-                      variant="filled"
                       sx={{
                         borderRadius: '35%',
                         cursor: 'pointer',
-                        marginTop: '5px'
+                        marginTop: '10px',
+                        color: "white",
+                        backgroundColor:"#087c69"
                       }}
-                      onClick={() => openModal(item)}
+                        onClick={() => openDrawer()}
                     />
-                  </div>
+                   </div>
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
-       
       </div>
-
+     <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={closeDrawer}
+        variant="temporary"
+        PaperProps={{
+    sx: { width: "20%" },
+            fontSize: "300%",
+          }}
+      >
+        {<p>Cart: </p>}
+        <button>CHECKOUT</button>
+      </Drawer>
+     
       <Dialog open={modalOpen} onClose={closeModal}>
         <DialogContent>
           {selectedItem && (
@@ -124,11 +147,18 @@ function OrderPage() {
           )}
         </DialogContent>
       </Dialog>
-      <div style={{ width: '20%'  }}>
-       
-       </div>
+      <div style={{ width: '8%' }}>
+        <ShoppingCartIcon 
+          sx={{
+            cursor: 'pointer',
+            marginRight: '10px',
+            color: "#087c69",
+            fontSize: "300%",
+          }}
+          onClick={() => setDrawerOpen(true)} 
+        />
+      </div>
     </main>
-    
   );
 }
 
