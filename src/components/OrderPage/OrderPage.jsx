@@ -52,6 +52,10 @@ function OrderPage() {
     setDrawerOpen(false);
   };
 
+  const handleRemove = (index) => {
+    dispatch({ type: 'REMOVE', payload: index });
+  };
+
   const handleAdd = (item) => {
 
     dispatch({ type: 'ADD', 
@@ -141,13 +145,16 @@ function OrderPage() {
   }}
 >
   <ul>
-    {cart.map((cartItem) => (
-      <li key={cartItem.id}>{cartItem.name} {cartItem.price} </li>
+    {cart.map((cartItem, index) => (
+      <p key={cartItem.id}>
+        <button onClick={() => handleRemove(index)}>X</button> {cartItem.name} {cartItem.price}
+      </p>
     ))}
   </ul>
   <h5>total: {total}</h5>
   <button>CHECKOUT</button>
 </Drawer>
+
 
       <Dialog open={modalOpen} onClose={closeModal}>
         <DialogContent>
