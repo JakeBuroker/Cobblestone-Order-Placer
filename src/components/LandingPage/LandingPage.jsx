@@ -19,6 +19,7 @@ function LandingPage() {
 
       <div className="grid">
         <div className="grid-col grid-col_8">
+        <img height="400px" width="600px" src="/images/cobblestonehome.jpg" /> 
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
             id felis metus. Vestibulum et pulvinar tortor. Morbi pharetra lacus

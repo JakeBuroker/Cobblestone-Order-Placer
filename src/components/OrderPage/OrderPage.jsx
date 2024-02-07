@@ -45,61 +45,64 @@ function OrderPage() {
   };
 
   return (
-    <main>
-      <Grid container spacing = {1}>
-        {menu.map((item) => (
-          <Grid item xs={12} sm={6} md={3} lg={2} key={item.id}>
-            <Card
-              sx={{
-                height: '94%',
-                width: '50%'
-              }}
-            >
-              <CardMedia
-                component="img"
-                src={`/images/${item.url}`}
+    <main style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ width: '25%' }}>
+       
+      </div>
+      <div style={{ width: '70%' }}>
+        <Grid container spacing={2}>
+          {menu.map((item) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
+              <Card
                 sx={{
-                  height: 150,
+                  height: '100%',
                 }}
-              />
-              <CardContent>
-                <Typography
-                  variant="body1"
-                  nowrap="true"
+              >
+                <CardMedia
+                  component="img"
+                  src={`/images/${item.url}`}
                   sx={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
+                    height: 150,
                   }}
-                >
-                  <b>{item.name}</b>
-                </Typography>
-                <div style={{ textAlign: 'center' }}>
-                  <Chip
-                    label="Details"
-                    variant="filled"
+                />
+                <CardContent>
+                  <Typography
+                    variant="body1"
+                    nowrap="true"
                     sx={{
-                      borderRadius: '40%',
-                      cursor: 'pointer', 
-                    }}
-                    onClick={() => openModal(item)} 
-                  />
-                  <Button
-                    variant="filled"
-                    size="small"
-                    sx={{
-                      marginTop: '10px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
                     }}
                   >
-                    Add
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-
+                    <b>{item.name}</b>
+                  </Typography>
+                  <div style={{ textAlign: 'center' }}>
+                    <Chip
+                      label="Details"
+                      variant="filled"
+                      sx={{
+                        borderRadius: '40%',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => openModal(item)}
+                    />
+                    <Button
+                      variant="filled"
+                      size="small"
+                      sx={{
+                        marginTop: '10px',
+                      }}
+                    >
+                      Add
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </div>
 
       <Dialog open={modalOpen} onClose={closeModal}>
         <DialogContent>
@@ -107,10 +110,10 @@ function OrderPage() {
             <div>
               <Typography variant="h5">{selectedItem.description}</Typography>
               <img
-      style={{ maxWidth: "100%", height: 'auto' }}
-      src= {`/images/${selectedItem.url}`}
-      alt="image"
-    />
+                style={{ maxWidth: "100%", height: 'auto' }}
+                src={`/images/${selectedItem.url}`}
+                alt="image"
+              />
             </div>
           )}
         </DialogContent>
