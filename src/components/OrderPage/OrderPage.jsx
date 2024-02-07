@@ -45,16 +45,17 @@ function OrderPage() {
   };
 
   return (
-    <main style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <div style={{ width: '25%' }}>
+    <main style={{ display: 'flex', justifyContent: 'space-between', marginTop: '3%' }}>
+      <div style={{ width: '30%'  }}>
        
       </div>
       <div style={{ width: '70%' }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={0.75}>
           {menu.map((item) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
+            <Grid item xs={12} sm={6} md={4} lg={2} key={item.id}>
               <Card
                 sx={{
+                  border: '2px solid',
                   height: '100%',
                 }}
               >
@@ -78,30 +79,35 @@ function OrderPage() {
                     <b>{item.name}</b>
                   </Typography>
                   <div style={{ textAlign: 'center' }}>
-                    <Chip
+                    <Chip 
                       label="Details"
                       variant="filled"
                       sx={{
-                        borderRadius: '40%',
+                        borderRadius: '35%',
                         cursor: 'pointer',
+                        marginRight: '5px',
+                        marginTop: '10px'
                       }}
                       onClick={() => openModal(item)}
                     />
-                    <Button
+               
+           <Chip
+                      label="Add"
                       variant="filled"
-                      size="small"
                       sx={{
-                        marginTop: '10px',
+                        borderRadius: '35%',
+                        cursor: 'pointer',
+                        marginTop: '5px'
                       }}
-                    >
-                      Add
-                    </Button>
+                      onClick={() => openModal(item)}
+                    />
                   </div>
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
+       
       </div>
 
       <Dialog open={modalOpen} onClose={closeModal}>
@@ -118,7 +124,11 @@ function OrderPage() {
           )}
         </DialogContent>
       </Dialog>
+      <div style={{ width: '20%'  }}>
+       
+       </div>
     </main>
+    
   );
 }
 
