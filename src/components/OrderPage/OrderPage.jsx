@@ -15,6 +15,8 @@ import CategorySelector from '../CategorySelector/CategorySelector'
 function OrderPage() {
   const dispatch = useDispatch();
   const menu = useSelector((store) => store.menu);
+  const cart = useSelector((store) => store.cart)
+  const total = useSelector((store) => store.total)
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -128,20 +130,25 @@ function OrderPage() {
           ))}
         </Grid>
       </div>
-     <Drawer
-        anchor="right"
-        open={drawerOpen}
-        onClose={closeDrawer}
-        variant="temporary"
-        PaperProps={{
+      <Drawer
+  anchor="right"
+  open={drawerOpen}
+  onClose={closeDrawer}
+  variant="temporary"
+  PaperProps={{
     sx: { width: "20%" },
-            fontSize: "300%",
-          }}
-      >
-        {<p>Cart: </p>}
-        <button>CHECKOUT</button>
-      </Drawer>
-     
+    fontSize: "300%",
+  }}
+>
+  <ul>
+    {cart.map((cartItem) => (
+      <li key={cartItem.id}>{cartItem.name} {cartItem.price} </li>
+    ))}
+  </ul>
+  <h5>total: {total}</h5>
+  <button>CHECKOUT</button>
+</Drawer>
+
       <Dialog open={modalOpen} onClose={closeModal}>
         <DialogContent>
           {selectedItem && (
