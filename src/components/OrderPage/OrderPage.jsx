@@ -17,6 +17,7 @@ function OrderPage() {
   const menu = useSelector((store) => store.menu);
   const cart = useSelector((store) => store.cart)
   const total = useSelector((store) => store.total)
+  const cartCount = useSelector((store) => store.cartCount )
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -170,6 +171,7 @@ function OrderPage() {
           )}
         </DialogContent>
       </Dialog>
+      <p>{cartCount}</p>
       <div style={{ width: '8%' }}>
         <ShoppingCartIcon 
           sx={{
@@ -180,6 +182,8 @@ function OrderPage() {
           }}
           onClick={() => setDrawerOpen(true)} 
         />
+         <p style={{ marginRight: '80%' }}
+         >Total ${total}</p>
       </div>
     </main>
   );
