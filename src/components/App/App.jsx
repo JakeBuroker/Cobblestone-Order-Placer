@@ -18,7 +18,9 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import MenuPage from '../MenuPage/MenuPage';
 import OrderPage from '../OrderPage/OrderPage';
 import CheckoutPage from '../CheckoutPage/CheckoutPage'
+import OrderPlacedPage from  '../OrderPlacedPage/OrderPlacedPage'
 import './App.css';
+import Admin from '../Admin/Admin';
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +60,14 @@ function App() {
             <UserPage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/admin"
+          >
+            <Admin />
+          </ProtectedRoute>
+
           <Route
             // logged in shows InfoPage else shows LoginPage
             exact
@@ -80,6 +90,14 @@ function App() {
             path="/order"
           >
             <OrderPage />
+          </Route>
+
+          <Route
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/orderplaced"
+          >
+            <OrderPlacedPage />
           </Route>
 
 
@@ -122,14 +140,7 @@ function App() {
             exact
             path="/home"
           >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the Landing page
               <LandingPage />
-            }
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
