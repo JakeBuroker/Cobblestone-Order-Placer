@@ -37,5 +37,21 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.get('/', (req, res) => {
+  pool.query(
+    `SELECT o.time, o.order_status, c.first_name, c.last_name, c.phone
+ FROM
+  orders o
+ JOIN
+  customer c ON o.customer_id = c.customer_id`
+  ).then((result) => {
+      res.send(result.rows);
+  }).catch((error) => {
+      console.log('Error GET /api/menu', error)
+      res.sendStatus(500);
+  });
+})
+
+
 module.exports = router;
 
