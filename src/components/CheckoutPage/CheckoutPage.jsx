@@ -1,16 +1,35 @@
-import React from 'react';
+import React from 'react'
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import axios from 'axios'
 
-// This is one of our simplest components
-// It doesn't have local state
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is
 
-function CheckoutPage() {
+
+
+function CustomerCheckout() {
+  const total = useSelector(store => store.total);
+
+
+
+  const handleSubmit = event => {
+
+  }
+
   return (
-    <div className="container">
-      <p>Order Page</p>
-    </div>
+      <>
+          <h1>Checkout</h1>
+
+          <p>Total: {total}</p>
+          <form onSubmit={handleSubmit}>
+              <button type="submit">
+                 Place Order
+              </button>
+          </form>
+      </>
   );
 }
 
-export default CheckoutPage;
+export default CustomerCheckout
+
+  

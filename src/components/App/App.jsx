@@ -17,6 +17,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import MenuPage from '../MenuPage/MenuPage';
 import OrderPage from '../OrderPage/OrderPage';
+import CheckoutPage from '../CheckoutPage/CheckoutPage'
 import './App.css';
 
 function App() {
@@ -79,6 +80,14 @@ function App() {
             path="/order"
           >
             <OrderPage />
+          </Route>
+
+
+          <Route
+            exact
+            path="/checkout"
+          >
+            <CheckoutPage />
           </Route>
 
           <Route

@@ -11,6 +11,8 @@ import Drawer from '@mui/material/Drawer';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { DialogContent, Dialog, buttonBaseClasses } from '@mui/material';
 import CategorySelector from '../CategorySelector/CategorySelector'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+import CheckoutPage from '../CheckoutPage/CheckoutPage';
 
 function OrderPage() {
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ function OrderPage() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const history = useHistory()
 
   useEffect(() => {
     fetchMenu();
@@ -59,15 +62,19 @@ function OrderPage() {
 
   const handleAdd = (item) => {
 
-    dispatch({ type: 'ADD', 
-    payload: {
-      id: item.menu_item_id ,
-      name: item.name,
-      description: item.description,
-      price: item.price,
-      url: item.url
-    } })
-  
+    dispatch({
+      type: 'ADD',
+      payload: {
+        id: item.menu_item_id,
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        url: item.url,
+        quantity: 1
+      }})}
+
+    const handleCheckout = () => {
+      history.push('/Checkout')
     }
 
   return (
@@ -153,7 +160,7 @@ function OrderPage() {
     ))}
   </ul>
   <h5>total: {total}</h5>
-  <button>CHECKOUT</button>
+  <button onClick={() => handleCheckout()}>CHECKOUT</button>
 </Drawer>
 
 
