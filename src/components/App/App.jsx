@@ -21,6 +21,7 @@ import CheckoutPage from '../CheckoutPage/CheckoutPage'
 import OrderPlacedPage from  '../OrderPlacedPage/OrderPlacedPage'
 import './App.css';
 import Admin from '../Admin/Admin';
+import AdminDetailsPage from '../AdminDetailsPage/AdminDetailsPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -60,13 +61,6 @@ function App() {
             <UserPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/admin"
-          >
-            <Admin />
-          </ProtectedRoute>
 
           <Route
             // logged in shows InfoPage else shows LoginPage
@@ -74,6 +68,21 @@ function App() {
             path="/contact"
           >
             <ContactPage />
+          </Route>
+
+          <Route
+            exact
+            path="/admin"
+          >
+            <Admin />
+          </Route>
+
+
+          <Route
+            exact
+            path="/admindetails"
+          >
+            <AdminDetailsPage />
           </Route>
 
           <Route

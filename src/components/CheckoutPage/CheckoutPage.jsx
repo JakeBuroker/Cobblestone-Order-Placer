@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { DateTime } from 'luxon';
 
 function CheckoutPage() {
   const cart = useSelector(state => state.cart);
@@ -13,7 +14,7 @@ function CheckoutPage() {
   const [phone, setPhone] = useState('');
   const [onlinePayment, setOnlinePayment] = useState(false);
   const history = useHistory()
-
+  const now = DateTime.now();
   const handleSubmit = (event) => {
     event.preventDefault();
 history.push('/orderplaced')
@@ -23,7 +24,7 @@ history.push('/orderplaced')
       phone,
       onlinePayment,
       total: total,
-      time: new Date().toISOString(),
+      time: now,
       items: cart.map(item => ({
         menuItemId: item.id,
         quantity: item.quantity,
