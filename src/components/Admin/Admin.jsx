@@ -27,6 +27,17 @@ function Admin() {
         });
 };
 
+const editOrder = (orderId) => {
+  axios.put(`/api/orders/${orderId}`)
+      .then(() => {
+          fetchOrders();
+      })
+      .catch(error => {
+          console.error("Error updating order:", error);
+          alert("Could not update order!");
+      });
+};
+
   const fetchOrders = () => {
     axios.get("/api/orders")
       .then((response) => {
@@ -69,7 +80,7 @@ function Admin() {
           <tr>
             <th>Name</th>
             <th>Time</th>
-            <th>Status</th>
+            <th>Order Status</th>
             <th>Phone</th>
             <th>Details</th>
           </tr>
@@ -95,7 +106,7 @@ function Admin() {
           {selectedItem && (
             <div>
               <Typography variant="h5">
-                {selectedItem.first_name} {selectedItem.last_name}
+                {selectedItem.first_name} {selectedItem.last_name}  <button onClick={() => editOrder(selectedItem.order_id)}>Complete Order</button>
               </Typography>
               {selectedDetails.map((detail, index) => (
                 <Typography key={index} variant="body1">
