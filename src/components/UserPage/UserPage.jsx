@@ -33,7 +33,7 @@ function UserPage() {
   
       {store.userOrders.map((order, index) => (
         <p key={order.id}>
-         Order ID: <b>{order.order_id}</b>, Total: <b>${order.total}</b> <button onClick={() => handleDetails(index)}>Details</button> 
+         Order ID: <b>{order.order_id}</b>, Total: <b>${order.total}, </b> Placed: <b>${order.time}</b> <button onClick={() => handleDetails(index)}>Details</button> 
         </p>
       ))}
     </div>
