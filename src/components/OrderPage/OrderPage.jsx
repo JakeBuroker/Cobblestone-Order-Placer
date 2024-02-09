@@ -13,6 +13,8 @@ import { DialogContent, Dialog, buttonBaseClasses } from '@mui/material';
 import CategorySelector from '../CategorySelector/CategorySelector'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import CheckoutPage from '../CheckoutPage/CheckoutPage';
+import ClearIcon from '@mui/icons-material/Clear';
+import Button from '@mui/material/Button';
 
 function OrderPage() {
   const dispatch = useDispatch();
@@ -153,14 +155,18 @@ function OrderPage() {
   }}
 >
   <ul>
+  <p  style={{ fontSize: "150%", textAlign: 'center', marginRight:'35px' }}>Cart</p>
     {cart.map((cartItem, index) => (
       <p key={cartItem.id}>
         <button onClick={() => handleRemove(index)}>X</button> {cartItem.name} {cartItem.price}
       </p>
     ))}
   </ul>
-  <h5>total: {total}</h5>
-  <button onClick={() => handleCheckout()}>CHECKOUT</button>
+  <h5 style={{ fontSize: "150%", textAlign: 'center', }}>Total: ${total}</h5>
+  <Button sx={{
+                  border: '2px solid',
+                  color: 'green'
+                }} onClick={() => handleCheckout()}>CHECKOUT</Button>
 </Drawer>
 
 

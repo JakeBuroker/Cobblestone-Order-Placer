@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Dialog, DialogContent, Typography } from "@mui/material";
+import { DataGrid } from '@mui/x-data-grid';
+import { CheckCircleOutline, HourglassEmpty } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import InfoIcon from '@mui/icons-material/Info';
+
 
 function Admin() {
   const dispatch = useDispatch();
@@ -15,28 +20,6 @@ function Admin() {
     fetchOrders();
     fetchDetails();
   }, []);
-
-  const deleteOrder = (orderId) => {
-    axios.delete(`/api/orders/${orderId}`)
-        .then(() => {
-            fetchOrders();
-        })
-        .catch(error => {
-            console.error("Error deleting order:", error);
-            alert("Could not delete order!");
-        });
-};
-
-const editOrder = (orderId) => {
-  axios.put(`/api/orders/${orderId}`)
-      .then(() => {
-          fetchOrders();
-      })
-      .catch(error => {
-          console.error("Error updating order:", error);
-          alert("Could not update order!");
-      });
-};
 
   const fetchOrders = () => {
     axios.get("/api/orders")
@@ -58,9 +41,30 @@ const editOrder = (orderId) => {
       });
   };
 
+  const deleteOrder = (orderId) => {
+    axios.delete(`/api/orders/${orderId}`)
+        .then(() => {
+            fetchOrders();
+        })
+        .catch(error => {
+            console.error("Error deleting order:", error);
+            alert("Could not delete order!");
+        });
+  };
+
+  const editOrder = (orderId) => {
+    axios.put(`/api/orders/${orderId}`)
+        .then(() => {
+            fetchOrders();
+        })
+        .catch(error => {
+            console.error("Error updating order:", error);
+            alert("Could not update order!");
+        });
+  };
+
   const openModal = (order) => {
-  
-    const orderDetails = details.filter(detail => detail.order_id === order.order_id);
+    const orderDetails = details.filter(detail => detail.order_id === order.id);
     setSelectedDetails(orderDetails);
     setSelectedItem(order);
     setModalOpen(true);
@@ -72,45 +76,69 @@ const editOrder = (orderId) => {
     setModalOpen(false);
   };
 
+  const columns = [
+    { field: 'firstName', headerName: 'First Name', width: 150 },
+    { field: 'lastName', headerName: 'Last Name', width: 150 },
+    { field: 'time', headerName: 'Time', width: 200 },
+    {
+      field: 'orderStatus',
+      headerName: 'Order Status',
+      width: 120,
+      renderCell: (params) => {
+        return params.value ? (
+          <CheckCircleOutline color="success" />
+        ) : (
+          <HourglassEmpty color="action" />
+        );
+      },
+    },
+    { field: 'phone', headerName: 'Phone', width: 150 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      sortable: false,
+      width: 150,
+      renderCell: (params) => (
+        <div>
+          <button onClick={() => openModal(params.row)} style={{ marginRight: '5px' }}><InfoIcon/></button>
+          <button onClick={() => deleteOrder(params.id)}><DeleteIcon/></button>
+        </div>
+      ),
+    },
+  ];
+
+  const rows = orders.map(order => ({
+    id: order.order_id,
+    firstName: order.first_name,
+    lastName: order.last_name,
+    time: order.time,
+    orderStatus: order.order_status,
+    phone: order.phone,
+  }));
+  
   return (
-    <div className="container">
+    <div style={{ height: 400, width: '100%' }}>
       <h1>Admin</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Time</th>
-            <th>Order Status</th>
-            <th>Phone</th>
-            <th>Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order) => (
-            <tr key={order.order_id}>
-              <td>{order.first_name} {order.last_name}</td>
-              <td>{order.time}</td>
-              <td>{JSON.stringify(order.order_status)}</td>
-              <td>{order.phone}</td>
-              <td>
-                <button onClick={() => openModal(order)}>Details</button>
-                <button onClick={() => deleteOrder(order.order_id)}>x</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        checkboxSelection={false}
+        disableSelectionOnClick
+      />
      
       <Dialog open={modalOpen} onClose={closeModal}>
         <DialogContent>
           {selectedItem && (
             <div>
               <Typography variant="h5">
-                {selectedItem.first_name} {selectedItem.last_name}  <button onClick={() => editOrder(selectedItem.order_id)}>Complete Order</button>
+                {selectedItem.firstName} {selectedItem.lastName}
+                <button onClick={() => editOrder(selectedItem.id)} style={{ marginLeft: '20px' }}>Complete Order</button>
               </Typography>
               {selectedDetails.map((detail, index) => (
                 <Typography key={index} variant="body1">
-                  Item: {detail.name}, Quantity: {detail.quantity}, Price: ${detail.price}, Notes: {detail.notes}
+                  Item: {detail.name}, Quantity: {detail.quantity}, Price: ${detail.price}
                 </Typography>
               ))}
             </div>

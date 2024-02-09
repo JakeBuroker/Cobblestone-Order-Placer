@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
+import  LoadingButton  from '@mui/lab/LoadingButton';
 
 function CheckoutPage() {
   const cart = useSelector(state => state.cart);
@@ -13,10 +14,12 @@ function CheckoutPage() {
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [onlinePayment, setOnlinePayment] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const history = useHistory()
   const now = DateTime.now();
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
 history.push('/orderplaced')
     const newOrder = {
       firstName,
@@ -57,7 +60,10 @@ history.push('/orderplaced')
             <input type="checkbox" checked={onlinePayment} onChange={e => setOnlinePayment(e.target.checked)} />
           </label>
         </div>
-        <button type="submit">Submit</button>
+        <LoadingButton  sx={{
+                  border: '2px solid',
+                 color: 'green'
+                }}loading={isSubmitting} loadingIndicator="Loading…" variant="outlined" type="submit">Place Order</LoadingButton>
       </form>
     </>
   );
