@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', (req, res) => {
   pool.query(
-    `SELECT o.time, o.order_status, c.first_name, c.last_name, c.phone
+    `SELECT o.order_id, o.time, o.order_status, c.first_name, c.last_name, c.phone
  FROM
   orders o
  JOIN
@@ -53,12 +53,14 @@ router.get('/', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-  pool.query('DELETE FROM "orders" WHERE order_id=$1', [req.params.id]).then((result) => {
+  console.log('Deleting order with ID:', req.params.id);
+  pool.query('DELETE FROM "orders" WHERE order_id=$1', [req.params.id])
+    .then((result) => {
       res.sendStatus(200);
-  }).catch((error) => {
+    }).catch((error) => {
       console.log('Error DELETE /api/order', error);
       res.sendStatus(500);
-  })
+    });
 });
 
 router.put('/:id', (req, res) => {
