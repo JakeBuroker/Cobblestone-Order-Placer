@@ -2,21 +2,30 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Dialog, DialogContent, Typography } from "@mui/material";
-import { DateTime } from "luxon";
 
 function Admin() {
   const dispatch = useDispatch();
-  const orders = useSelector((store) => store.orders);
+  const orders = useSelector(store => store.orders);
+  const details = useSelector(store => store.details);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedDetails, setSelectedDetails] = useState([]);
 
   useEffect(() => {
     fetchOrders();
-    {orders.map((order) => (
-      console.log("ORDER:",order.id)
-      
-    ))}
+    fetchDetails();
   }, []);
+
+  const deleteOrder = (orderId) => {
+    axios.delete(`/api/orders/${orderId}`)
+        .then(() => {
+            fetchOrders();
+        })
+        .catch(error => {
+            console.error("Error deleting order:", error);
+            alert("Could not delete order!");
+        });
+};
 
   const fetchOrders = () => {
     axios.get("/api/orders")
@@ -28,38 +37,54 @@ function Admin() {
       });
   };
 
-  const openModal = (item) => {
-    setSelectedItem(item);
+  const fetchDetails = () => {
+    axios.get('/api/details')
+      .then((response) => {
+        dispatch({ type: 'SET_DETAILS', payload: response.data });
+      })
+      .catch((error) => {
+        console.error("Could not fetch details:", error);
+      });
+  };
+
+  const openModal = (order) => {
+  
+    const orderDetails = details.filter(detail => detail.order_id === order.order_id);
+    setSelectedDetails(orderDetails);
+    setSelectedItem(order);
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setSelectedItem(null);
+    setSelectedDetails([]);
     setModalOpen(false);
   };
-
- 
-const deleteOrder = (orderId) => {
-    axios.delete(`/api/orders/${orderId}`)
-        .then(() => {
-            fetchOrders();
-        })
-        .catch(error => {
-            console.error("Error deleting order:", error);
-            alert("Could not delete order!");
-        });
-};
 
   return (
     <div className="container">
       <h1>Admin</h1>
       <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Phone</th>
+            <th>Details</th>
+          </tr>
+        </thead>
         <tbody>
           {orders.map((order) => (
-            <tr key={order.id}>
-              {order.first_name} {order.last_name} {order.time} {JSON.stringify(order.order_status)} {order.phone}
-              <button onClick={() => deleteOrder(order.order_id)}>x</button>
-              <button onClick={() => openModal(order)}>Mark Complete</button>
+            <tr key={order.order_id}>
+              <td>{order.first_name} {order.last_name}</td>
+              <td>{order.time}</td>
+              <td>{JSON.stringify(order.order_status)}</td>
+              <td>{order.phone}</td>
+              <td>
+                <button onClick={() => openModal(order)}>Details</button>
+                <button onClick={() => deleteOrder(order.order_id)}>x</button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -69,7 +94,14 @@ const deleteOrder = (orderId) => {
         <DialogContent>
           {selectedItem && (
             <div>
-              <Typography variant="h5">{selectedItem.first_name} {selectedItem.last_name}</Typography>
+              <Typography variant="h5">
+                {selectedItem.first_name} {selectedItem.last_name}
+              </Typography>
+              {selectedDetails.map((detail, index) => (
+                <Typography key={index} variant="body1">
+                  Item: {detail.name}, Quantity: {detail.quantity}, Price: ${detail.price}, Notes: {detail.notes}
+                </Typography>
+              ))}
             </div>
           )}
         </DialogContent>

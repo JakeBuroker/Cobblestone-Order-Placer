@@ -21,7 +21,7 @@ import CheckoutPage from '../CheckoutPage/CheckoutPage'
 import OrderPlacedPage from  '../OrderPlacedPage/OrderPlacedPage'
 import './App.css';
 import Admin from '../Admin/Admin';
-import AdminDetailsPage from '../AdminDetailsPage/AdminDetailsPage';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -78,12 +78,7 @@ function App() {
           </Route>
 
 
-          <Route
-            exact
-            path="/admindetails"
-          >
-            <AdminDetailsPage />
-          </Route>
+
 
           <Route
             // logged in shows InfoPage else shows LoginPage
