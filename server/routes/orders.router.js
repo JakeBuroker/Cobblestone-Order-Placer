@@ -42,21 +42,25 @@ router.post('/', async (req, res) => {
 
 
 router.get('/', (req, res) => {
-  pool.query(
-    `SELECT o.user_id, o.order_id, o.time, o.order_status, c.first_name, c.last_name, c.phone
- FROM
-  orders o
- JOIN
-  customer c ON o.customer_id = c.customer_id`
-  ).then((result) => {
+  if (req.isAuthenticated() && req.user.access_level === TRUE) {
+    pool.query(
+      `SELECT o.user_id, o.order_id, o.time, o.order_status, c.first_name, c.last_name, c.phone
+       FROM orders o
+       JOIN customer c ON o.customer_id = c.customer_id`
+    ).then((result) => {
       res.send(result.rows);
-  }).catch((error) => {
-      console.log('Error GET /api/menu', error)
+    }).catch((error) => {
+      console.log('Error GET /api/menu', error);
       res.sendStatus(500);
-  });
-})
+    });
+  } else {
+    res.sendStatus(401);
+  }
+});
+
 
 router.delete('/:id', (req, res) => {
+  if (req.isAuthenticated() && req.user.access_level === TRUE)
   console.log('Deleting order with ID:', req.params.id);
   pool.query('DELETE FROM "orders" WHERE order_id=$1', [req.params.id])
     .then((result) => {
@@ -68,6 +72,7 @@ router.delete('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
+  if (req.isAuthenticated() && req.user.access_level === TRUE)
   pool.query(`UPDATE orders
   SET order_status = 'true'
   WHERE order_id = $1;

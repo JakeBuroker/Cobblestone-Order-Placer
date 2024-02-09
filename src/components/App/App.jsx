@@ -40,14 +40,7 @@ function App() {
           {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
           <Redirect exact from="/" to="/home" />
 
-          {/* Visiting localhost:5173/about will show the about page. */}
-          <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/about"
-          >
-            <AboutPage />
-          </Route>
+       
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
@@ -62,6 +55,20 @@ function App() {
           </ProtectedRoute>
 
 
+     <ProtectedRoute
+            exact
+            path="/order"
+          >
+            <OrderPage />
+          </ProtectedRoute>
+  
+          <ProtectedRoute
+            exact
+            path="/admin"
+          >
+            <Admin />
+          </ProtectedRoute>
+
           <Route
             // logged in shows InfoPage else shows LoginPage
             exact
@@ -70,18 +77,17 @@ function App() {
             <ContactPage />
           </Route>
 
-          <Route
+        
+
+   <Route
             exact
-            path="/admin"
+            path="/about"
           >
-            <Admin />
+            <AboutPage />
           </Route>
 
 
-
-
           <Route
-            // logged in shows InfoPage else shows LoginPage
             exact
             path="/menu"
           >
@@ -89,7 +95,6 @@ function App() {
           </Route>
 
           <Route
-            // logged in shows InfoPage else shows LoginPage
             exact
             path="/order"
           >
@@ -99,7 +104,7 @@ function App() {
           <Route
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/orderplaced"
+            path="/orderPlaced"
           >
             <OrderPlacedPage />
           </Route>
