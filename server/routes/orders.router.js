@@ -3,10 +3,12 @@ const router = express.Router();
 const pool = require('../modules/pool');
 
 router.post('/', async (req, res) => {
+  const userId = req.user.id;
   const { firstName, lastName, phone, onlinePayment, total, time, items } = req.body;
 
   try {
     await pool.query('BEGIN');
+    
     const customerInsertQuery = `
       INSERT INTO customer (first_name, last_name, phone, online_payment)
       VALUES ($1, $2, $3, $4) RETURNING customer_id;
@@ -15,10 +17,10 @@ router.post('/', async (req, res) => {
     const customerId = customerResult.rows[0].customer_id;
 
     const orderInsertQuery = `
-      INSERT INTO orders (customer_id, total, time, order_status)
-      VALUES ($1, $2, $3, $4) RETURNING order_id;
+      INSERT INTO orders (user_id, customer_id, total, time, order_status)
+      VALUES ($1, $2, $3, $4, $5) RETURNING order_id;
     `;
-    const orderResult = await pool.query(orderInsertQuery, [customerId, total, time, false]);
+    const orderResult = await pool.query(orderInsertQuery, [userId, customerId, total, time, false]);
     const orderId = orderResult.rows[0].order_id;
 
     for (const item of items) {
@@ -28,18 +30,20 @@ router.post('/', async (req, res) => {
       `;
       await pool.query(lineItemInsertQuery, [orderId, item.menuItemId, item.quantity, item.notes]);
     }
+
     await pool.query('COMMIT');
-    res.json({ success: true, message: 'Order placed'})
+    res.json({ success: true, message: 'Order placed successfully' });
   } catch (error) {
     await pool.query('ROLLBACK');
-    console.error(error);
-    res.status(500);
+    console.error('Error processing order:', error);
+    res.status(500).json({ success: false, message: 'Failed to place order' });
   }
 });
 
+
 router.get('/', (req, res) => {
   pool.query(
-    `SELECT o.order_id, o.time, o.order_status, c.first_name, c.last_name, c.phone
+    `SELECT o.user_id, o.order_id, o.time, o.order_status, c.first_name, c.last_name, c.phone
  FROM
   orders o
  JOIN

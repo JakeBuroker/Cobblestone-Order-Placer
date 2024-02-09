@@ -6,7 +6,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { CheckCircleOutline, HourglassEmpty } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
-
+import TaskIcon from "@mui/icons-material/Task";
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 
 function Admin() {
   const dispatch = useDispatch();
@@ -134,7 +135,7 @@ function Admin() {
             <div>
               <Typography variant="h5">
                 {selectedItem.firstName} {selectedItem.lastName}
-                <button onClick={() => editOrder(selectedItem.id)} style={{ marginLeft: '20px' }}>Complete Order</button>
+                <button onClick={() => editOrder(selectedItem.id)} style={{ marginLeft: '20px' }}><AssignmentTurnedInIcon/></button>
               </Typography>
               {selectedDetails.map((detail, index) => (
                 <Typography key={index} variant="body1">

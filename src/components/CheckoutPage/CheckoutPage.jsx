@@ -17,6 +17,8 @@ function CheckoutPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const history = useHistory()
   const now = DateTime.now();
+
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsSubmitting(true);
