@@ -1,6 +1,6 @@
 const orders = (state = [], action) => {
     if(action.type === 'SET_ORDERS'){
-      return [...action.payload]
+      return action.payload
     }
     return state;
   }

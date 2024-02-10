@@ -32,6 +32,18 @@ function OrderPage() {
     fetchMenu();
   }, []);
 
+  const USD = (number) => {
+    if (number == 0) {
+      return '$0.00';
+    }
+    
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(number);
+  };
+
+
   const fetchMenu = () => {
     axios
       .get('/api/menu')
@@ -59,10 +71,10 @@ function OrderPage() {
     setDrawerOpen(false);
   };
 
-  const handleRemove = (index) => {
-    dispatch({ type: 'REMOVE', payload: index });
+  const handleRemove = (index, price) => {
+    dispatch({ type: 'REMOVE', payload: { index, price } });
   };
-
+  
   const handleAdd = (item) => {
 
     dispatch({
@@ -159,11 +171,11 @@ function OrderPage() {
   <p  style={{ fontSize: "150%", textAlign: 'center', marginRight:'35px' }}>Cart</p>
     {cart.map((cartItem, index) => (
       <p key={cartItem.id}>
-        <button onClick={() => handleRemove(index)}>X</button> {cartItem.name} {cartItem.price}
+        <button onClick={() => handleRemove(index, cartItem.price)}>X</button> {cartItem.name} {cartItem.price}
       </p>
     ))}
   </ul>
-  <h5 style={{ fontSize: "150%", textAlign: 'center', }}>Total: ${total}</h5>
+  <h5 style={{ fontSize: "150%", textAlign: 'center', }}>Total: {USD(total)}</h5>
   <Button sx={{
                   border: '2px solid',
                   color: 'green'
@@ -197,7 +209,7 @@ function OrderPage() {
           onClick={() => setDrawerOpen(true)} 
         />
          <p style={{ marginRight: '80%' }}
-         >Total ${total}</p>
+         >Total {USD(total)}</p>
       </div>
     </main>
   );
