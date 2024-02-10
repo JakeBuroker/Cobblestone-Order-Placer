@@ -16,7 +16,7 @@ function CheckoutPage() {
   const [onlinePayment, setOnlinePayment] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const history = useHistory()
-  const now = DateTime.now();
+  const now = DateTime.now().toISO()
 
   
   const handleSubmit = (event) => {
@@ -36,6 +36,7 @@ history.push('/orderplaced')
         notes: item.notes || ''
       }))
     };
+    console.log(now)
 
     axios.post('/api/orders', newOrder)
       .then(response => {

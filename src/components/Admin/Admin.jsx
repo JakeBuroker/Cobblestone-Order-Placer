@@ -6,8 +6,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { CheckCircleOutline, HourglassEmpty } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
-import TaskIcon from "@mui/icons-material/Task";
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import { DateTime } from "luxon";
 
 function Admin() {
   const dispatch = useDispatch();
@@ -16,6 +16,7 @@ function Admin() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedDetails, setSelectedDetails] = useState([]);
+  
 
   useEffect(() => {
     fetchOrders();
@@ -112,7 +113,7 @@ function Admin() {
     id: order.order_id,
     firstName: order.first_name,
     lastName: order.last_name,
-    time: order.time,
+    time: DateTime.fromISO(order.time).toLocaleString(DateTime.DATETIME_MED),
     orderStatus: order.order_status,
     phone: order.phone,
   }));

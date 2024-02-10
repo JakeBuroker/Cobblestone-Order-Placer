@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import useReduxStore from '../../hooks/useReduxStore';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { DateTime } from 'luxon';
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function UserPage() {
       <p style={{ fontSize: "150%", textAlign: 'center', marginRight:'35px' }}>Order History</p>
       {store.userOrders.map((order, index) => (
         <p key={order.id}>
-         Order ID: <b>{order.order_id}</b>, Total: <b>${order.total}, </b> Placed: <b>${order.time}</b> <button onClick={() => handleDetails(index)}>Details</button> 
+         Order ID: <b>{order.order_id}</b>, Total: <b>${order.total}, </b> Placed: <b>{DateTime.fromISO(order.time).toLocaleString(DateTime.DATETIME_MED)}</b> <button onClick={() => handleDetails(index)}>Details</button> 
         </p>
       ))}
     </div>
