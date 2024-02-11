@@ -9,7 +9,7 @@ function MenuPage() {
   return (
     <div className="container">
       <div>
-        <p>This menu page is for anyone to read!</p>
+        <p>Menu</p>
       </div>
     </div>
   );

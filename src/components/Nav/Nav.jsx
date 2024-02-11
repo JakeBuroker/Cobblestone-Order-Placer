@@ -33,19 +33,12 @@ function Nav() {
         Order Pickup
       </Link>
 
-    
-      {!user.id && (
-        <Link className="navLink" to="/login">
-          Login / Register
-        </Link>
-      )}
-
       {!user.id ? (
-        <Link className="navLink" to="/login">
+        <Link style={{ marginLeft: '750px'}} className="navLink" to="/login">
           Login / Register
         </Link>
       ) : (
-        <div style={{ marginLeft: '325px', display: 'flex', alignItems: 'center' }}>
+        <div style={{ marginLeft: '750px', display: 'flex', alignItems: 'center' }}>
           <Link className="navLink" to={`/user`} style={{ marginRight: '3px' }}>
             {user.username}
           </Link>

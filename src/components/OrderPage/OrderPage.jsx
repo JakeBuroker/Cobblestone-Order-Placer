@@ -92,71 +92,82 @@ function OrderPage() {
       history.push('/Checkout')
     }
 
-  return (
-    <main style={{ display: 'flex', justifyContent: 'space-between', marginTop: '3%' }}>
-      <div style={{ width: '20%' }}>
-        <CategorySelector />
-       </div>
-      <div style={{ width: '80%' }}>
-        <Grid  container spacing={0.75}>
-          {menu.map((item) => (
-            <Grid key={item.id} item xs={12} sm={6} md={4} lg={2.8} >
-              <Card
-                sx={{
-                  border: '2px solid',
-                  height: '100%',
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  src={`/images/${item.url}`}
-                  sx={{
-                    height: 150,
-                  }}
-                />
-                 <CardContent>
-                  <Typography
-                    variant="body1"
-                    nowrap="true"
+    return (
+      <main style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2%', gap: '15px' }}>
+        <div style={{ width: '15%' }}>
+        </div>
+        <div style={{ width: '75%' }}>
+          <Grid container spacing={2}>
+            {menu.map((item, index) => (
+              <Grid key={item.id} item xs={12} sm={6} md={4} lg={2.25}>
+                <Card sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  height: '100%', 
+                  border: '1.5px solid black',
+                  borderRadius: '8px',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.03)',
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                  },
+                }}>
+                  <CardMedia
+                    component="img"
+                    src={`/images/${item.url}`}
                     sx={{
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
+                      height: 175,
+                      objectFit: 'cover',
+                      borderTopLeftRadius: '8px',
+                      borderTopRightRadius: '8px',
+                      borderBottom: '1px solid',
                     }}
-                  >
-                    <b>{item.name}</b>
-                  </Typography>
-                  <div style={{ textAlign: 'center' }}>
-                    <Chip 
-                      label="Details"
-                      sx={{
-                        borderRadius: '35%',
-                        cursor: 'pointer',
-                        marginRight: '5px',
-                        marginTop: '10px',
-                        color: 'white',
-                        backgroundColor:"black"
-                      }}
-                      onClick={() => openModal(item)}
-                    />
-                    <Chip
-                      label="Add"
-                      sx={{
-                        borderRadius: '35%',
-                        cursor: 'pointer',
-                        marginTop: '10px',
-                        color: "white",
-                        backgroundColor:"#087c69"
-                      }}
+                  />
+                  <CardContent sx={{ flexGrow: 1, padding: '16px' }}>
+                    <Typography gutterBottom variant="h6" component="div" sx={{
+                      textAlign: 'center',
+                      fontWeight: 'medium',
+                    }}>
+                      {item.name}
+                    </Typography>
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
+                      <Chip
+                        label="Details"
+                        onClick={() => openModal(item)}
+                        sx={{
+                          borderRadius: '20px',
+                          cursor: 'pointer',
+                          backgroundColor: 'black',
+                          color: 'white',
+                          fontWeight: 'bold',
+                          '&:hover': {
+                            backgroundColor: '#333',
+                          },
+                        }}
+                      />
+                      <Chip
+                        label="Add"
                         onClick={() => handleAdd(item)}
-                    />
-                   </div>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </div>
+                        sx={{
+                          borderRadius: '20px',
+                          cursor: 'pointer',
+                          backgroundColor: "#035a4c",
+                          color: "white",
+                          fontWeight: 'bold',
+                          '&:hover': {
+                            backgroundColor: '#024037',
+                          },
+                        }}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </div>
       <Drawer
   anchor="right"
   open={drawerOpen}
@@ -175,7 +186,9 @@ function OrderPage() {
       textAlign: 'center', 
       fontWeight: 'bold', 
       color: "white", 
-      marginBottom: "0px", 
+      marginBottom: "0px", backgroundColor: "#087c69"
+       
+      
      
     }}>
     Cart
@@ -249,7 +262,7 @@ function OrderPage() {
         </DialogContent>
       </Dialog>
      
-      <div style={{ marginRight: "10px",marginBottom: "2250px",display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '8%' }}>
+      <div style={{ marginRight: "0px",marginBottom: "2250px",display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '2.5%' }}>
   <ShoppingCartIcon 
     sx={{
       cursor: 'pointer',
@@ -282,8 +295,6 @@ function OrderPage() {
     </p>
   </div>
 </div>
-
-
     </main>
   );
 }

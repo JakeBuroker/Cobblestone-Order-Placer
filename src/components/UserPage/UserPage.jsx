@@ -1,21 +1,23 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useReduxStore from '../../hooks/useReduxStore';
-import { useEffect } from 'react';
-import { Dialog, DialogContent, Typography } from "@mui/material";
-import InfoIcon from '@mui/icons-material/Info';
 import axios from 'axios';
 import { DateTime } from 'luxon';
+import { Dialog, DialogContent, Typography, List, ListItem, ListItemText, IconButton, Paper, Box } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
+import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
+import HourglassEmpty from '@mui/icons-material/HourglassEmpty';
+
 
 function UserPage() {
   const dispatch = useDispatch();
-  const store = useReduxStore();
+  const userOrders = useSelector((state) => state.userOrders);
+  const details = useSelector((state) => state.details);
+  const user = useSelector((state) => state.user);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedDetails, setSelectedDetails] = useState([]);
-  
-  const fetchOrders = () => {
+
+  useEffect(() => {
     axios.get("/api/userOrders")
       .then((response) => {
         dispatch({ type: "SET_USER_ORDERS", payload: response.data });
@@ -23,9 +25,8 @@ function UserPage() {
       .catch((error) => {
         console.error("Could not fetch orders:", error);
       });
-  };
 
-  const fetchDetails = () => {
+    
     axios.get('/api/details')
       .then((response) => {
         dispatch({ type: 'SET_DETAILS', payload: response.data });
@@ -33,17 +34,12 @@ function UserPage() {
       .catch((error) => {
         console.error("Could not fetch details:", error);
       });
-  };
-
-  useEffect(() => {
-    fetchOrders();
-    fetchDetails();
-  }, []);
+  }, [dispatch]);
 
   const openModal = (orderId) => {
-    const orderDetails = store.details.filter(detail => detail.order_id === orderId);
+    const orderDetails = details.filter(detail => detail.order_id === orderId);
     setSelectedDetails(orderDetails);
-    const selectedOrder = store.userOrders.find(order => order.order_id === orderId);
+    const selectedOrder = userOrders.find(order => order.order_id === orderId);
     setSelectedItem(selectedOrder);
     setModalOpen(true);
   };
@@ -53,40 +49,61 @@ function UserPage() {
     setSelectedDetails([]);
     setModalOpen(false);
   };
-  
-  return (
-    <div className="container">
-      <h2>Welcome, {store.user.username}!</h2>
-      <p>Your ID is: {store.user.id}</p>
-      <p style={{ fontSize: "150%", textAlign: 'center', marginRight:'35px' }}>Order History</p>
-      {store.userOrders.map((order, index) => (
-        <p key={order.id}>
-  Order ID: <b>{order.order_id}</b>, Total: <b>${order.total}, </b> Placed: <b>{DateTime.fromISO(order.time).toLocaleString(DateTime.DATETIME_MED)}</b> 
-  <button onClick={() => openModal(order.order_id)} style={{ marginRight: '5px' }}><InfoIcon/></button>
-</p>
-      ))}
 
-    <Dialog open={modalOpen} onClose={closeModal}>
+  const orderStatus = (orderStatus) => {
+    return orderStatus ? <CheckCircleOutline color="success" /> : <HourglassEmpty color="action" />;
+  };
+
+
+  return (
+    <Box sx={{  padding: '20px' }}>
+      <Typography variant="h4" align="center" gutterBottom>Welcome, {user.username}!</Typography>
+      <Typography variant="h6" align="center" gutterBottom>Your ID is: {user.id}</Typography>
+      <Typography variant="h5" styles={{marginRight:"-500-px"}} gutterBottom>Order History</Typography>
+      <List sx={{ width: '30%' }}>
+      {userOrders.map((order) => (
+  <ListItem key={order.order_id} divider component={Paper} sx={{ marginBottom: 2, border: '1px solid #e0e0e0', borderRadius: '4px', display: 'flex',
+   alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+      <Box sx={{ flex: '1 1 auto' }}>
+        <Typography variant="body1">
+          Order ID: {order.order_id}, Total: ${order.total}
+        </Typography>
+        <Typography variant="body2">
+          Placed: {DateTime.fromISO(order.time).toLocaleString(DateTime.DATETIME_MED)}
+        </Typography>
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
+        {orderStatus(order.order_status)}
+      </Box>
+    </Box>
+    <IconButton edge="end" onClick={() => openModal(order.order_id)}>
+      <InfoIcon />
+    </IconButton>
+  </ListItem>
+))}
+
+
+   
+      </List>
+
+      <Dialog open={modalOpen} onClose={closeModal} maxWidth="sm" fullWidth>
         <DialogContent>
           {selectedItem && (
-            <div>
-              <Typography variant="h5">
-                {selectedItem.firstName} {selectedItem.lastName}
-          {console.log(selectedItem)}
-              </Typography>
+            <>
+              <Typography variant="h6" gutterBottom>Order Details for {selectedItem.firstName} {selectedItem.lastName}</Typography>
               {selectedDetails.map((detail, index) => (
-                <Typography key={index} variant="body1">
-                  Item: {store.details.name}, Quantity: {detail.quantity}, Price: ${detail.price}
-                </Typography>
+                <Box key={index} sx={{ borderBottom: '1px solid #e0e0e0', paddingBottom: 2, marginBottom: 2 }}>
+                  <Typography variant="body1" gutterBottom>Item: {detail.name}, Quantity: {detail.quantity}, Price: ${detail.price}</Typography>
+                </Box>
               ))}
-            </div>
+            </>
           )}
         </DialogContent>
       </Dialog>
-      </div>
-      
+    </Box>
   );
-      }  
+}
 
-// this allows us to use <App /> in index.js
 export default UserPage;
+

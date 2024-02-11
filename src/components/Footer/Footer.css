@@ -3,3 +3,21 @@ footer {
   padding: 20px;
   text-align: center;
 }
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; 
+}
+
+.footer-icon {
+  margin-left: 10px; 
+  display: flex;
+  align-items: center;
+}
+
+
+.footer-icon svg {
+  width: 24px; 
+  height: 24px; 
+}

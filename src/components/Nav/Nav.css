@@ -3,8 +3,8 @@
   display: flex;
   align-items: center;
 
-  height: 90px;
-  background-color: #087c69;
+  height: 70px;
+  background-color: #035a4c;
   overflow: hidden;
 }
 
@@ -22,7 +22,7 @@
 .navLink {
   display: inline-block;
   color: #f2f2f2;
-  background-color: #087c69;
+  background-color: #035a4c;
   text-align: center;
   padding: 10px 3px;
   text-decoration: none;
@@ -30,7 +30,7 @@
   font-size: 23px;
 
 
-  margin-left: 28px;
+  margin-left: 25px;
 
 
   border: none;
@@ -39,6 +39,6 @@
 }
 
 .navLink:hover {
-  background-color: #008183;
+  background-color: #035a4c;
 }
 

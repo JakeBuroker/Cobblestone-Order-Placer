@@ -33,7 +33,7 @@ function OrderPlacedPage() {
           Return Home </Button>
         <Button variant="contained"
           sx={{
-            backgroundColor: "#087c69", 
+            backgroundColor: "#035a4c", 
             color: 'white',
             '&:hover': {
               backgroundColor: '#065a52',

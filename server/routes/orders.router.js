@@ -46,7 +46,8 @@ router.get('/', (req, res) => {
     pool.query(
       `SELECT o.user_id, o.order_id, o.time, o.order_status, c.first_name, c.last_name, c.phone
        FROM orders o
-       JOIN customer c ON o.customer_id = c.customer_id`
+       JOIN customer c ON o.customer_id = c.customer_id
+       ORDER by o.time desc;`
     ).then((result) => {
       res.send(result.rows);
     }).catch((error) => {

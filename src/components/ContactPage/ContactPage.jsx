@@ -8,7 +8,7 @@ import React from 'react';
 function ContactPage() {
   return (
     <div className="container">
-      <p>Contact Page</p>
+      <p>Contact</p>
     </div>
   );
 }

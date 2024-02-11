@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     const userId = req.user.id;
     if (req.isAuthenticated())
      {pool
-        .query(`SELECT * FROM "orders" WHERE user_id = ${userId};`)
+        .query(`SELECT * FROM "orders" WHERE user_id = ${userId} ORDER by orders.time desc;`)
         .then((results) => res.send(results.rows))
         .catch((error) => {
           console.log('Error making SELECT for secrets:', error);

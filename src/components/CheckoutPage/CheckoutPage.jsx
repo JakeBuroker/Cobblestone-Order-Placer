@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import { Grid, TextField, Checkbox, FormControlLabel, Typography, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
+
+
 
 function CheckoutPage() {
   const cart = useSelector(state => state.cart);
@@ -15,6 +20,7 @@ function CheckoutPage() {
   const [phone, setPhone] = useState('');
   const [onlinePayment, setOnlinePayment] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const dispatch = useDispatch()
   const history = useHistory();
   const now = DateTime.now().toISO();
 
@@ -35,17 +41,27 @@ function CheckoutPage() {
         notes: item.notes || '',
       })),
     };
+    function SimpleAlert() {
+      
+       
+      
+    }
 
     axios.post('/api/orders', newOrder)
-      .then(response => {
-        history.push('/orderplaced');
-        alert('Order placed');
-      })
-      .catch(error => {
-        alert('Error submitting order: ' + error.message);
-      })
-      .finally(() => setIsSubmitting(false));
-  };
+    .then(() => { 
+      dispatch({ type: 'RESET' }); 
+      history.push('/orderplaced'); 
+      <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+      Here is a gentle confirmation that your action was successful.
+    </Alert>
+    })
+    .catch(error => { 
+      alert('Error submitting order: ' + error.message);
+    })
+    .finally(() => {
+      setIsSubmitting(false);
+    });
+  }
 
   return (
     <Grid container spacing={2}>
@@ -80,6 +96,7 @@ function CheckoutPage() {
             control={<Checkbox checked={onlinePayment} onChange={e => setOnlinePayment(e.target.checked)} />}
             label="Pay at restaurant"/>
           <LoadingButton
+       
             loading={isSubmitting}
             loadingIndicator="Placing order..."
             variant="contained"
@@ -89,6 +106,7 @@ function CheckoutPage() {
           </LoadingButton>
         </form>
       </Grid>
+      
     </Grid>
   );
 }

@@ -8,7 +8,9 @@ const cartCountReducer = (state = 0, action) => {
     if (action.type === 'REMOVE') {
         return state - 1;
     }
-    console.log(state);
+    if (action.type === 'RESET') {
+        return state = 0;
+      }
     return state;
 }
 
