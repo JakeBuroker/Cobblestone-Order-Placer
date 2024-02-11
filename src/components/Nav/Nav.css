@@ -1,5 +1,5 @@
 .nav {
-  /* flex box layout */
+
   display: flex;
   align-items: center;
 
@@ -16,7 +16,7 @@
   font-size: 210%;
   font-weight: 700;
   color: #f2f2f2;
-  padding-left: 25px; /* Increase padding-left */
+  padding-left: 25px;
 }
 
 .navLink {
@@ -29,11 +29,10 @@
   margin-top:7px ; 
   font-size: 23px;
 
-  /* Add margin-left to move links to the right */
+
   margin-left: 28px;
 
-  /* these last two make the logout button in
-  the nav bar look like another link */
+
   border: none;
   cursor: pointer;
   outline: 0;

@@ -163,23 +163,74 @@ function OrderPage() {
   onClose={closeDrawer}
   variant="temporary"
   PaperProps={{
-    sx: { width: "20%" },
-    fontSize: "300%",
-  }}
->
-  <ul>
-  <p  style={{ fontSize: "150%", textAlign: 'center', marginRight:'35px' }}>Cart</p>
+    sx: {
+      width: "20%",
+      fontSize: "1rem",
+      backgroundColor: "#087c69",
+      color: "white", 
+    }
+  }}>
+  <Typography  variant="h6" component="p" sx={{ 
+      fontSize: "1.4rem", 
+      textAlign: 'center', 
+      fontWeight: 'bold', 
+      color: "white", 
+      marginBottom: "0px", 
+     
+    }}>
+    Cart
+  </Typography>
+  <ul style={{  listStyle: 'none', padding: 5 }}>
     {cart.map((cartItem, index) => (
-      <p key={cartItem.id}>
-        <button onClick={() => handleRemove(index, cartItem.price)}>X</button> {cartItem.name} {cartItem.price}
-      </p>
+      <li key={cartItem.id} style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center', 
+          marginBottom: "10px",
+          
+        }}>
+        <span>{cartItem.name} {USD(cartItem.price)}</span>
+        <Button 
+          onClick={() => handleRemove(index, cartItem.price)}
+          sx={{ 
+            minWidth: "20px", 
+            padding: 1, 
+            marginLeft: "10px", 
+            color: 'white', 
+            borderColor: 'white', 
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+            },
+          }}
+        >
+          X
+        </Button>
+      </li>
     ))}
   </ul>
-  <h5 style={{ fontSize: "150%", textAlign: 'center', }}>Total: {USD(total)}</h5>
-  <Button sx={{
-                  border: '2px solid',
-                  color: 'green'
-                }} onClick={() => handleCheckout()}>CHECKOUT</Button>
+  <Typography variant="h6" sx={{ 
+      fontSize: "1.25rem", 
+      textAlign: 'center', 
+      marginTop: "20px", 
+      marginBottom: "20px", 
+    }}>
+    Total: {USD(total)}
+  </Typography>
+  <Button 
+    fullWidth 
+    variant="contained" 
+    sx={{
+      color: '#087c69',
+      backgroundColor: 'white',
+      '&:hover': {
+        backgroundColor: '#f5f5f5',
+        
+      },
+    }} 
+    onClick={() => handleCheckout()}
+  >
+    CHECKOUT
+  </Button>
 </Drawer>
 
 
@@ -197,20 +248,42 @@ function OrderPage() {
           )}
         </DialogContent>
       </Dialog>
-      <p>{cartCount}</p>
-      <div style={{ width: '8%' }}>
-        <ShoppingCartIcon 
-          sx={{
-            cursor: 'pointer',
-            marginRight: '10px',
-            color: "#087c69",
-            fontSize: "300%",
-          }}
-          onClick={() => setDrawerOpen(true)} 
-        />
-         <p style={{ marginRight: '80%' }}
-         >Total {USD(total)}</p>
-      </div>
+     
+      <div style={{ marginRight: "10px",marginBottom: "2250px",display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '8%' }}>
+  <ShoppingCartIcon 
+    sx={{
+      cursor: 'pointer',
+      color: "#087c69",
+      fontSize: "3rem",
+    }}
+    onClick={() => setDrawerOpen(true)}
+  />
+  <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'flex-end', 
+      paddingRight: '3rem',
+      
+      textAlign: 'right',
+    }}>
+    <p style={{ 
+      color: "#087c69", 
+      margin: 0, 
+      fontSize: '1rem', 
+    }}>
+      {cartCount} items
+    </p>
+    <p style={{ 
+      margin: 0, 
+      fontSize: '1.25rem', 
+      fontWeight: 'bold', 
+    }}>
+      Total {USD(total)}
+    </p>
+  </div>
+</div>
+
+
     </main>
   );
 }
