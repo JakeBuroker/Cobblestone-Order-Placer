@@ -34,12 +34,12 @@ function Nav() {
       </Link>
 
       {!user.id ? (
-        <Link style={{ marginLeft: '750px'}} className="navLink" to="/login">
+        <Link  className="navLink" to="/login">
           Login / Register
         </Link>
       ) : (
-        <div style={{ marginLeft: '750px', display: 'flex', alignItems: 'center' }}>
-          <Link className="navLink" to={`/user`} style={{ marginRight: '3px' }}>
+        <div style={{  }}>
+          <Link className="navLink" to={`/user`} style={{ alignItems: 'end',display: 'flex-end', marginRight: '3px' }}>
             {user.username}
           </Link>
           <LogOutButton className="navLink" />

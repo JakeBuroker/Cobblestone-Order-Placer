@@ -101,9 +101,9 @@ function Admin() {
       sortable: false,
       width: 150,
       renderCell: (params) => (
-        <div>
-          <button onClick={() => openModal(params.row)} style={{ marginRight: '5px' }}><InfoIcon/></button>
-          <button onClick={() => deleteOrder(params.id)}><DeleteIcon/></button>
+        <div >
+          <button onClick={() => openModal(params.row)} style={{ marginRight: '5px', backgroundColor: "hsl(60, 73%, 98%)" }}><InfoIcon/></button>
+          <button onClick={() => deleteOrder(params.id)} style={{ marginRight: '5px', backgroundColor: "hsl(60, 73%, 98%)" }}><DeleteIcon/></button>
         </div>
       ),
     },

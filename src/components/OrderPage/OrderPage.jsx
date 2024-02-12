@@ -15,21 +15,25 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import CheckoutPage from '../CheckoutPage/CheckoutPage';
 import ClearIcon from '@mui/icons-material/Clear';
 import Button from '@mui/material/Button';
-
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import ToggleButton from '@mui/material/ToggleButton';
 
 function OrderPage() {
   const dispatch = useDispatch();
   const menu = useSelector((store) => store.menu);
   const cart = useSelector((store) => store.cart)
   const total = useSelector((store) => store.total)
+  const categories = useSelector((store) => store.categories)
   const cartCount = useSelector((store) => store.cartCount )
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const history = useHistory()
 
   useEffect(() => {
     fetchMenu();
+    fetchCategories()
   }, []);
 
   const USD = (number) => {
@@ -56,6 +60,27 @@ function OrderPage() {
         alert('Could not fetch menu! It is broken');
       });
   };
+
+const fetchCategories = () => {
+  axios
+    .get('/api/categories')
+    .then((response) => {
+      console.log('Menu: ', response.data);
+      dispatch({ type: 'SET_CATEGORIES', payload: response.data });
+    })
+    .catch((error) => {
+      console.error(error);
+      alert('Could not fetch menu! It is broken');
+    });
+};
+
+  const handleCategoryChange = (event, newCategories) => {
+    setSelectedCategories(newCategories);
+  };
+
+ 
+ 
+
 
   const openModal = (item) => {
     setSelectedItem(item);
@@ -93,18 +118,37 @@ function OrderPage() {
     }
 
     return (
-      <main style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2%', gap: '15px' }}>
-        <div style={{ width: '15%' }}>
-        </div>
-        <div style={{ width: '75%' }}>
+      <main style={{ display: 'flex', justifyContent: 'space-between', marginTop: '3%', gap: '15px' }}>
+      <div style={{ width: '11%' }}>
+        <Typography marginRight="-10px" align="end" variant="h6" sx={{ marginBottom: 2 }}>
+         <b> Categories</b>
+        </Typography>
+        <ToggleButtonGroup
+          orientation="vertical"
+          value={selectedCategories}
+          onChange={handleCategoryChange}
+          
+          exclusive
+          sx={{ marginLeft:"20px",display: 'flex', flexDirection: 'column', gap: 1, }}
+        >
+          {categories.map((category) => (
+            <ToggleButton key={category.category_id} value={category.name} sx={{ width: '140.5%',justifyContent: 'center' }}>
+              <b>{category.name}</b>
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+      </div>
+        <div style={{ width: '78%', }}>
           <Grid container spacing={2}>
             {menu.map((item, index) => (
-              <Grid key={item.id} item xs={12} sm={6} md={4} lg={2.25}>
+              <Grid key={item.id} item xs={12} sm={6} md={4} lg={1.9}>
                 <Card sx={{
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   height: '100%', 
+                 
+                  
                   border: '1.5px solid black',
                   borderRadius: '8px',
                   boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
@@ -118,32 +162,37 @@ function OrderPage() {
                     component="img"
                     src={`/images/${item.url}`}
                     sx={{
-                      height: 175,
+                      height: 142,
                       objectFit: 'cover',
                       borderTopLeftRadius: '8px',
                       borderTopRightRadius: '8px',
-                      borderBottom: '1px solid',
+                      borderBottom: '1.75px solid',  
+
+                      
                     }}
                   />
-                  <CardContent sx={{ flexGrow: 1, padding: '16px' }}>
+                  <CardContent sx={{ flexGrow: 1, height: "80px", padding: '4px', backgroundColor: "hsl(60, 73%, 94%)",
+                         }}>
                     <Typography gutterBottom variant="h6" component="div" sx={{
                       textAlign: 'center',
+                      marginTop: "13.5px",
                       fontWeight: 'medium',
+                      fontSize: "16px"
                     }}>
                       {item.name}
                     </Typography>
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: '5px', marginTop: '20px' }}>
                       <Chip
                         label="Details"
                         onClick={() => openModal(item)}
                         sx={{
                           borderRadius: '20px',
                           cursor: 'pointer',
-                          backgroundColor: 'black',
-                          color: 'white',
+                         
+                          color: '#027662',
                           fontWeight: 'bold',
                           '&:hover': {
-                            backgroundColor: '#333',
+                            backgroundcolor: "hsl(60, 73%, 95%)",
                           },
                         }}
                       />
@@ -153,11 +202,12 @@ function OrderPage() {
                         sx={{
                           borderRadius: '20px',
                           cursor: 'pointer',
-                          backgroundColor: "#035a4c",
+
+                          backgroundColor:"#027662;" ,
                           color: "white",
                           fontWeight: 'bold',
                           '&:hover': {
-                            backgroundColor: '#024037',
+                            backgroundColor: "#035a4c",
                           },
                         }}
                       />
@@ -262,12 +312,15 @@ function OrderPage() {
         </DialogContent>
       </Dialog>
      
-      <div style={{ marginRight: "0px",marginBottom: "2250px",display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '2.5%' }}>
+      <div style={{ marginRight: "-27.5px",marginBottom: "2250px",display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '2.5%' }}>
   <ShoppingCartIcon 
     sx={{
       cursor: 'pointer',
-      color: "#087c69",
+      color: "#027662",
       fontSize: "3rem",
+      '&:hover': {
+        borderRadius: "10px 10px 10px 10px",
+        backgroundColor: "hsl(60, 73%, 95.5%)"}
     }}
     onClick={() => setDrawerOpen(true)}
   />
@@ -280,7 +333,7 @@ function OrderPage() {
       textAlign: 'right',
     }}>
     <p style={{ 
-      color: "#087c69", 
+      color: "#027662", 
       margin: 0, 
       fontSize: '1rem', 
     }}>

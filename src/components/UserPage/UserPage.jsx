@@ -62,7 +62,7 @@ function UserPage() {
       <Typography variant="h5" styles={{marginRight:"-500-px"}} gutterBottom>Order History</Typography>
       <List sx={{ width: '30%' }}>
       {userOrders.map((order) => (
-  <ListItem key={order.order_id} divider component={Paper} sx={{ marginBottom: 2, border: '1px solid #e0e0e0', borderRadius: '4px', display: 'flex',
+  <ListItem key={order.order_id} divider component={Paper} sx={{      backgroundColor: "hsl(60, 73%, 94%)", marginBottom: 2, border: '1px solid #e0e0e0', borderRadius: '4px', display: 'flex',
    alignItems: 'center', justifyContent: 'space-between' }}>
     <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
       <Box sx={{ flex: '1 1 auto' }}>
