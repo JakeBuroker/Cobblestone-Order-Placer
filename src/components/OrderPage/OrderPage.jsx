@@ -61,6 +61,16 @@ function OrderPage() {
       });
   };
 
+  const fetchMenuCategories = (categoryId) => {
+    axios.get(`/api/categories/${categoryId}`)
+      .then((response) => {
+        dispatch({ type: 'SET_MENU_ITEMS', payload: response.data });
+      })
+      .catch((error) => {
+        console.error('Error fetching menu items by category:', error);
+        alert('Could not fetch menu items for the selected category.');
+      });
+  };
 const fetchCategories = () => {
   axios
     .get('/api/categories')
@@ -74,13 +84,10 @@ const fetchCategories = () => {
     });
 };
 
-  const handleCategoryChange = (event, newCategories) => {
-    setSelectedCategories(newCategories);
+  const handleCategoryChange = (event, categoryId) => {
+    fetchMenuCategories(categoryId);
+    console.log(categoryId)
   };
-
- 
- 
-
 
   const openModal = (item) => {
     setSelectedItem(item);
@@ -101,7 +108,6 @@ const fetchCategories = () => {
   };
   
   const handleAdd = (item) => {
-
     dispatch({
       type: 'ADD',
       payload: {
@@ -125,14 +131,14 @@ const fetchCategories = () => {
         </Typography>
         <ToggleButtonGroup
           orientation="vertical"
-          value={selectedCategories}
+          value={selectedCategories.category_id}
           onChange={handleCategoryChange}
           
           exclusive
           sx={{ marginLeft:"20px",display: 'flex', flexDirection: 'column', gap: 1, }}
         >
           {categories.map((category) => (
-            <ToggleButton key={category.category_id} value={category.name} sx={{ width: '140.5%',justifyContent: 'center' }}>
+            <ToggleButton key={category.category_id} value={category.category_id} sx={{ width: '140.5%',justifyContent: 'center' }}>
               <b>{category.name}</b>
             </ToggleButton>
           ))}
@@ -146,9 +152,7 @@ const fetchCategories = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  height: '100%', 
-                 
-                  
+                  height: '100%',     
                   border: '1.5px solid black',
                   borderRadius: '8px',
                   boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
@@ -188,7 +192,6 @@ const fetchCategories = () => {
                         sx={{
                           borderRadius: '20px',
                           cursor: 'pointer',
-                         
                           color: '#027662',
                           fontWeight: 'bold',
                           '&:hover': {
@@ -202,7 +205,6 @@ const fetchCategories = () => {
                         sx={{
                           borderRadius: '20px',
                           cursor: 'pointer',
-
                           backgroundColor:"#027662;" ,
                           color: "white",
                           fontWeight: 'bold',
