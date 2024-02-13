@@ -125,8 +125,8 @@ const fetchCategories = () => {
 
     return (
       <main style={{ display: 'flex', justifyContent: 'space-between', marginTop: '3%', gap: '15px' }}>
-      <div style={{ width: '11%' }}>
-        <Typography marginRight="-10px" align="end" variant="h6" sx={{ marginBottom: 2 }}>
+      <div style={{ width: '12%' }}>
+        <Typography align="end" variant="h6" sx={{ marginBottom: 2 }}>
          <b> Categories</b>
         </Typography>
         <ToggleButtonGroup
@@ -138,16 +138,16 @@ const fetchCategories = () => {
           sx={{ marginLeft:"20px",display: 'flex', flexDirection: 'column', gap: 1, }}
         >
           {categories.map((category) => (
-            <ToggleButton key={category.category_id} value={category.category_id} sx={{ width: '140.5%',justifyContent: 'center' }}>
+            <ToggleButton key={category.category_id} value={category.category_id} sx={{ width: '125.5%',justifyContent: 'center' }}>
               <b>{category.name}</b>
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
       </div>
-        <div style={{ width: '78%', }}>
+        <div style={{ width: '79%', }}>
           <Grid container spacing={2}>
             {menu.map((item, index) => (
-              <Grid key={item.id} item xs={12} sm={6} md={4} lg={1.9}>
+              <Grid key={item.id} item xs={12} sm={6} md={4} lg={2.25}>
                 <Card sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -175,16 +175,12 @@ const fetchCategories = () => {
                       
                     }}
                   />
-                  <CardContent sx={{ flexGrow: 1, height: "80px", padding: '4px', backgroundColor: "hsl(60, 73%, 94%)",
+                  <CardContent sx={{ flexGrow: 1, height: "95px", padding: '0.5px', backgroundColor: "hsl(60, 73%, 94%)",
                          }}>
-                    <Typography gutterBottom variant="h6" component="div" sx={{
-                      textAlign: 'center',
-                      marginTop: "13.5px",
-                      fontWeight: 'medium',
-                      fontSize: "16px"
-                    }}>
-                      {item.name}
-                    </Typography>
+                  
+                      <tr style={{ display: 'flex', justifyContent: 'center', gap: '5px', marginTop: '15px' }}>{item.name} </tr>
+                      <tr style={{ display: 'flex', justifyContent: 'center', gap: '5px'}}> ${item.price}</tr>
+                   
                     <div style={{ display: 'flex', justifyContent: 'center', gap: '5px', marginTop: '20px' }}>
                       <Chip
                         label="Details"

@@ -38,6 +38,11 @@ function CheckoutPage() {
     }
   };
 
+  const handleRemove = (index, price) => {
+    dispatch({ type: 'REMOVE', payload: { index, price } });
+  };
+  
+
   const submitOrder = () => {
     const newOrder = {
       firstName,
@@ -84,7 +89,7 @@ function CheckoutPage() {
               <ListItemText primary={item.name} secondary={`Quantity: ${item.quantity}`} />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="delete">
-                  <DeleteIcon />
+                  <DeleteIcon onClick ={() => handleRemove(index, item.price)}/>
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
@@ -107,8 +112,7 @@ function CheckoutPage() {
             variant="contained"
             type="submit"
             disabled={!payAtRestaurant}
-            sx={{ mt: -1.35, backgroundColor: payAtRestaurant ? '#087c69' : '#a5d6a7', '&:hover': { backgroundColor: payAtRestaurant ? '#065a52' : '#81c784' } }}
-      >
+            sx={{ mt: -1.35, backgroundColor: payAtRestaurant ? '#087c69' : '#a5d6a7', '&:hover': { backgroundColor: payAtRestaurant ? '#065a52' : '#81c784' } }} >
             Place Order
           </LoadingButton>
         </form>

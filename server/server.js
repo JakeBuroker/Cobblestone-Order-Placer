@@ -37,13 +37,12 @@ app.use('/api/categories', categoriesRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/details', detailsRouter)
 app.use('/api/userOrders', userOrdersRouter)
-
 app.use(cors({
   origin: 'http://localhost:5173'
 }));
-
 app.options('*', cors());
 app.use('/api/stripe', stripeRouter);
+
 // Listen Server & Port
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
