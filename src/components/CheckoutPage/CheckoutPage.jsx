@@ -6,8 +6,10 @@ import { DateTime } from 'luxon';
 import { Grid, TextField, Checkbox, FormControlLabel,Typography,List,ListItem,ListItemText,ListItemSecondaryAction, IconButton,} from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import PayButton from '../PayButton/PayButton';
+
 import CheckIcon from '@mui/icons-material/Check';
+import { loadStripe } from '@stripe/stripe-js';
+import {url} from "../App/Api"
 
 function CheckoutPage() {
   const cart = useSelector((state) => state.cart);
@@ -20,19 +22,48 @@ function CheckoutPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const now = DateTime.now().toISO();
+  
 
-  const handleStripePayment = (e) => {
-    e.preventDefault();
+  const handleStripePayment = async (cart) => {
+    const stripe = await loadStripe("pk_live_51OgHgJIXKk2b7Ne9u5fAxNLViJbGPOM2rRpx4hwJwfLKZX6HLcHVLZcEBTMjurQlNnxRx5jlLUxD2CGIR8Aa3RId00KK7bqY5Y"); // Ensure loadStripe is properly imported or available
+  
+    const body = {
+      products: cart, // Assuming 'cart' is previously defined and structured correctly
+    };
+    const headers = {
+      "x-auth-token": localStorage.getItem("token"),
+      "Content-Type": "application/json",
+    };
+  
+    try {
+      // Make sure to capture the response from fetch before converting it to JSON
+      const response = await fetch(`${url}/stripe/create-checkout-session`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`); // Better error handling for non-OK responses
+      }
+  
+      const session = await response.json(); // Correctly await the parsing of the JSON response
+  
+      const result = await stripe.redirectToCheckout({ // Added await since redirectToCheckout returns a Promise
+        sessionId: session.id,
+      });
+  
+      // Error handling for Stripe's redirectToCheckout
+      if (result.error) {
+        console.log(result.error.message); // Correctly reference result.error.message
+      }
+    } catch (error) {
+      console.error("Error:", error.message); // Improved error handling
+    }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!firstName || !lastName || !phone) {
-      alert('Fill in all required fields.');
-      return;
-    }
-    setIsSubmitting(true);
-
     if (payAtRestaurant) {
       submitOrder();
     }
@@ -68,9 +99,7 @@ function CheckoutPage() {
       .catch((error) => {
         alert('Error submitting order: ' + error.message);
       })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+
   };
 
   return (
@@ -106,7 +135,7 @@ function CheckoutPage() {
           <FormControlLabel
             control={<Checkbox checked={payAtRestaurant} onChange={(e) => setPayAtRestaurant(e.target.checked)} />}
             label="Pay at Restaurant" />
-          {!payAtRestaurant && <PayButton   onClick={handleStripePayment} ></PayButton>}
+          {!payAtRestaurant && <button   onClick={() => handleStripePayment(cart)} ></button>}
           <LoadingButton
             loading={isSubmitting}
             variant="contained"
