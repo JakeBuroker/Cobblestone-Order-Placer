@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
+
 require('dotenv').config();
 const PORT = process.env.PORT || 5001;
+const cors = require('cors');
 
 // Middleware Includes
 const sessionMiddleware = require('./modules/session-middleware');
@@ -14,6 +16,7 @@ const categoriesRouter = require('./routes/categories.router');
 const ordersRouter = require('./routes/orders.router')
 const detailsRouter = require('./routes/details.router')
 const userOrdersRouter = require('./routes/userOrders.router')
+const stripeRouter = require("./routes/stripe.router")
 
 // Express Middleware
 app.use(express.json());
@@ -35,6 +38,12 @@ app.use('/api/orders', ordersRouter);
 app.use('/api/details', detailsRouter)
 app.use('/api/userOrders', userOrdersRouter)
 
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
+
+app.options('*', cors());
+app.use('/api/stripe', stripeRouter);
 // Listen Server & Port
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);

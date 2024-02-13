@@ -102,20 +102,15 @@ function App() {
           </Route>
 
           <Route
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/orderPlaced"
-          >
-            <OrderPlacedPage />
-          </Route>
-
-
-          <Route
             exact
             path="/checkout"
           >
             <CheckoutPage />
           </Route>
+
+          <Route exact path="/checkout-success"
+          >
+          <OrderPlacedPage/></Route>
 
           <Route
             exact
