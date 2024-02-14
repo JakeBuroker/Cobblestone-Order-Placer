@@ -1,3 +1,5 @@
+
+// Represents the total cost of the items in the cart
 const totalReducer = (state = 0, action) => {
   if (action.type === 'ADD') {
     return state + parseFloat(action.payload.price);
@@ -10,6 +12,5 @@ const totalReducer = (state = 0, action) => {
   }
   return state;
 };
-
 
 export default totalReducer

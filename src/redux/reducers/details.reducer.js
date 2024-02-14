@@ -1,3 +1,5 @@
+
+// Contains detailed information about orders, such as item specifics or statuses
 const detailsReducer = (state = [], action) => {
     if(action.type === 'SET_DETAILS'){
       return action.payload
@@ -5,6 +7,4 @@ const detailsReducer = (state = [], action) => {
     return state;
   }
   
-  // user will be on the redux state at:
-  // state.user
   export default detailsReducer;

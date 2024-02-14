@@ -1,3 +1,5 @@
+
+// Manages the user's current selection of items, representing the shopping cart
 const cartReducer = (state = [], action) => {
   if(action.type === 'ADD') {
     return [...state, action.payload];
@@ -10,6 +12,5 @@ const cartReducer = (state = [], action) => {
   }
   return state;
 };
-
 
 export default cartReducer

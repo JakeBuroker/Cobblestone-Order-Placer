@@ -2,22 +2,22 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 function RegisterForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const errors = useSelector((store) => store.errors);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const registerUser = (event) => {
     event.preventDefault();
 
     dispatch({
-      type: 'REGISTER',
+      type: "REGISTER",
       payload: {
         username: username,
         password: password,
       },
     });
-  }; // end registerUser
+  };
 
   return (
     <form className="formPanel" onSubmit={registerUser}>
@@ -27,6 +27,7 @@ function RegisterForm() {
           {errors.registrationMessage}
         </h3>
       )}
+
       <div>
         <label htmlFor="username">
           Username:
@@ -39,6 +40,7 @@ function RegisterForm() {
           />
         </label>
       </div>
+
       <div>
         <label htmlFor="password">
           Password:
@@ -51,6 +53,7 @@ function RegisterForm() {
           />
         </label>
       </div>
+
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
       </div>

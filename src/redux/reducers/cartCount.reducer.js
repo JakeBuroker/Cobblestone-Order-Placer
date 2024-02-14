@@ -1,6 +1,5 @@
 
-
-
+// Keeps track of the number of items in the cart
 const cartCountReducer = (state = 0, action) => {
     if (action.type === 'ADD') {
         return state + 1;

@@ -1,3 +1,5 @@
+
+// Stores user information; contains an id and username when a user is logged in
 const userReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_USER':
@@ -9,6 +11,4 @@ const userReducer = (state = {}, action) => {
   }
 };
 
-// user will be on the redux state at:
-// state.user
 export default userReducer;

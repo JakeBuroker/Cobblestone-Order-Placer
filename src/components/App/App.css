@@ -1,112 +1,100 @@
-html,
-body,
-#react-root {
+/* Global styles for the entire page, setting height and default styles */
+html, body, #react-root {
   height: 100%;
 }
 
+/* Default body styles, including font, margin, and background color */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0px;
+  margin: 0;
   background-color: hsl(60, 73%, 93%);
 }
 
+/* Ensures images are inline and do not exceed their container's width */
 img {
   display: inline-block;
   max-width: 100%;
 }
 
-/* --------------------------------------------------------------------------------
-Container
--------------------------------------------------------------------------------- */
-
+/* Styles for container class: adds padding */
 .container {
   padding: 20px;
 }
 
-/* --------------------------------------------------------------------------------
-Button
--------------------------------------------------------------------------------- */
-
+/* Button base styles, including display, padding, borders, and colors */
 .btn {
   display: inline-block;
   padding: 10px 20px;
-  border-color: #014041;
+  border: solid #014041;
   border-width: 1px 1px 3px;
   border-radius: 4px;
-  background-color: #035a4c;;
+  background-color: #035a4c;
   color: #f8f8f8;
   font-size: 1.1rem;
-  outline: 0;
   cursor: pointer;
 }
 
+/* Minimal button size */
 .btn_sizeMin {
   min-height: 50px;
   min-width: 100px;
 }
 
+/* Small button size adjustments */
 .btn_sizeSm {
   padding: 10px 15px;
   font-size: 0.8rem;
 }
 
+/* Full-width button style */
 .btn_sizeFull {
   display: block;
   width: 100%;
 }
 
+/* Button hover effects */
 .btn:hover {
   background-color: #035a4c;
-  text-decoration: none;
 }
 
-/* This line makes the "Register" and "Login" buttons look like links */
+/* Style buttons as links */
 .btn_asLink {
   padding: 0;
-  border-width: 0;
+  border: 0;
   border-bottom: 1px solid #444;
-  border-radius: 0;
   background: none;
-  font: inherit;
   color: #444;
 }
 
+/* Hover effect for .btn_asLink */
 .btn_asLink:hover {
-  background-color: transparent;
   border-color: #008183;
   color: #008183;
 }
 
-/* --------------------------------------------------------------------------------
-Alert
--------------------------------------------------------------------------------- */
-
+/* Alert box styling */
 .alert {
-  box-sizing: border-box;
   padding: 15px 10px;
   margin: 15px 0;
   border: 2px solid #e01616;
   background-color: #efefef;
-  border-radius: 3px;
   color: #e01616;
   font-size: 0.8rem;
+  border-radius: 3px;
 }
 
-/* --------------------------------------------------------------------------------
-Form Treatment
--------------------------------------------------------------------------------- */
-
+/* Form panel styling for centered positioning, padding, and shadow */
 .formPanel {
-  box-sizing: border-box;
   width: 400px;
   max-width: 100%;
   padding: 25px;
   margin: 0 auto 20px;
   background-color: #efefef;
   border-radius: 3px;
-  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
+/* Input field margin adjustments */
 input {
   margin: 5px;
   margin-bottom: 10px;

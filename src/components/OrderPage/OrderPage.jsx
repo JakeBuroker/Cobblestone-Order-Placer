@@ -10,7 +10,6 @@ import Chip from '@mui/material/Chip';
 import Drawer from '@mui/material/Drawer';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { DialogContent, Dialog, buttonBaseClasses } from '@mui/material';
-import CategorySelector from '../CategorySelector/CategorySelector'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import CheckoutPage from '../CheckoutPage/CheckoutPage';
 import ClearIcon from '@mui/icons-material/Clear';

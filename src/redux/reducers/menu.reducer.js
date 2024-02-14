@@ -1,3 +1,5 @@
+
+// Holds the list of items available for order
 const menuItemsReducer = (state = [], action) => {
     if(action.type === 'SET_MENU_ITEMS'){
       return action.payload
@@ -5,6 +7,4 @@ const menuItemsReducer = (state = [], action) => {
     return state;
   }
   
-  // user will be on the redux state at:
-  // state.user
   export default menuItemsReducer;

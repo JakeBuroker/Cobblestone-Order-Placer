@@ -2,55 +2,70 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Typography, Box } from '@mui/material';
 import MyMap from "/src/components/MyMap/MyMap"
+
+
 function OrderPlacedPage() {
   const history = useHistory();
 
   return (
-    <Box sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '87.5vh', 
-        gap: 4, 
-      }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "87.5vh", // Use vh unit for responsive height relative to the viewport
+        gap: 4,
+        paddingTop: 6,
+      }}
+    >
       <Typography variant="h3" component="h1" gutterBottom>
         Order Placed!
       </Typography>
-     
-      <Box sx={{
-          display: 'flex',
-          flexDirection: 'row',
+
+      {/* Row of buttons */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
           gap: 2,
-        }}>
-        <Button variant="contained" sx={{
-            backgroundColor: 'black', 
-            color: 'white',
-            '&:hover': {
-              backgroundColor: '#333',
-            },
-          }}
-          onClick={() => history.push("/home")} >
-          Return Home </Button>
-        <Button variant="contained"
+        }}
+      >
+        {/* Home */}
+        <Button
+          variant="contained"
           sx={{
-            backgroundColor: "#035a4c", 
-            color: 'white',
-            '&:hover': {
-              backgroundColor: '#065a52',
+            backgroundColor: "black",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "#333",
             },
           }}
-          onClick={() => history.push("/user")} >
+          onClick={() => history.push("/home")}
+        >
+          Return Home
+        </Button>
+
+        {/* order details */}
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#035a4c",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "#065a52",
+            },
+          }}
+          onClick={() => history.push("/user")}
+        >
           View Order
         </Button>
       </Box>
-      <MyMap
-      />
+      {/* Google Maps directions */}
+      <MyMap />
     </Box>
-    
   );
 }
-
 export default OrderPlacedPage;
 
 

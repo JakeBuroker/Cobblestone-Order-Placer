@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 
 function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
+  const errors = useSelector((store) => store.errors);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const login = (event) => {
     event.preventDefault();
-
     if (username && password) {
       dispatch({
-        type: 'LOGIN',
+        type: "LOGIN",
         payload: {
           username: username,
           password: password,
         },
       });
     } else {
-      dispatch({ type: 'LOGIN_INPUT_ERROR' });
+      dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
-  }; // end login
+  };
 
   return (
     <form className="formPanel" onSubmit={login}>
