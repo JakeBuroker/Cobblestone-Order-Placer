@@ -6,12 +6,13 @@ import { DateTime } from 'luxon';
 import { Grid, TextField, Checkbox, FormControlLabel,Typography,List,ListItem,ListItemText,ListItemSecondaryAction, IconButton,} from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-import CheckIcon from '@mui/icons-material/Check';
 import { loadStripe } from '@stripe/stripe-js';
 import {url} from "../App/Api"
 
+
+
 function CheckoutPage() {
+ 
   const cart = useSelector((state) => state.cart);
   const total = useSelector((state) => state.total);
   const [firstName, setFirstName] = useState('');
@@ -22,43 +23,34 @@ function CheckoutPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const now = DateTime.now().toISO();
-  
 
   const handleStripePayment = async (cart) => {
-    const stripe = await loadStripe("pk_live_51OgHgJIXKk2b7Ne9u5fAxNLViJbGPOM2rRpx4hwJwfLKZX6HLcHVLZcEBTMjurQlNnxRx5jlLUxD2CGIR8Aa3RId00KK7bqY5Y"); // Ensure loadStripe is properly imported or available
-  
+    const stripe = await loadStripe("pk_live_51OgHgJIXKk2b7Ne9u5fAxNLViJbGPOM2rRpx4hwJwfLKZX6HLcHVLZcEBTMjurQlNnxRx5jlLUxD2CGIR8Aa3RId00KK7bqY5Y");
     const body = {
-      products: cart, // Assuming 'cart' is previously defined and structured correctly
+      products: cart,
     };
     const headers = {
       "x-auth-token": localStorage.getItem("token"),
       "Content-Type": "application/json",
     };
-  
     try {
-      // Make sure to capture the response from fetch before converting it to JSON
       const response = await fetch(`${url}/stripe/create-checkout-session`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify(body),
       });
-  
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`); // Better error handling for non-OK responses
+        throw new Error(`HTTP error! status: ${response.status}`); 
       }
-  
-      const session = await response.json(); // Correctly await the parsing of the JSON response
-  
-      const result = await stripe.redirectToCheckout({ // Added await since redirectToCheckout returns a Promise
+      const session = await response.json(); 
+      const result = await stripe.redirectToCheckout({ 
         sessionId: session.id,
       });
-  
-      // Error handling for Stripe's redirectToCheckout
       if (result.error) {
-        console.log(result.error.message); // Correctly reference result.error.message
+        console.log(result.error.message);
       }
     } catch (error) {
-      console.error("Error:", error.message); // Improved error handling
+      console.error("Error:", error.message);
     }
   };
 
@@ -73,7 +65,6 @@ function CheckoutPage() {
     dispatch({ type: 'REMOVE', payload: { index, price } });
   };
   
-
   const submitOrder = () => {
     const newOrder = {
       firstName,
@@ -99,7 +90,6 @@ function CheckoutPage() {
       .catch((error) => {
         alert('Error submitting order: ' + error.message);
       })
-
   };
 
   return (
@@ -135,7 +125,7 @@ function CheckoutPage() {
           <FormControlLabel
             control={<Checkbox checked={payAtRestaurant} onChange={(e) => setPayAtRestaurant(e.target.checked)} />}
             label="Pay at Restaurant" />
-          {!payAtRestaurant && <button   onClick={() => handleStripePayment(cart)} ></button>}
+          {!payAtRestaurant &&  <button style={{cursor: 'pointer', backgroundColor:'#5433FF', color: 'white', height: '37.5px', fontSize: "108%" }} onClick={() => handleStripePayment(cart)}> Pay Online with Stripe</button>}
           <LoadingButton
             loading={isSubmitting}
             variant="contained"

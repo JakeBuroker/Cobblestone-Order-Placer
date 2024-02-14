@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Typography, Box } from '@mui/material';
-
+import MyMap from "/src/components/MyMap/MyMap"
 function OrderPlacedPage() {
   const history = useHistory();
 
@@ -11,12 +11,13 @@ function OrderPlacedPage() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '70vh', 
-        gap: 2, 
+        height: '87.5vh', 
+        gap: 4, 
       }}>
       <Typography variant="h3" component="h1" gutterBottom>
         Order Placed!
       </Typography>
+     
       <Box sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -43,7 +44,10 @@ function OrderPlacedPage() {
           View Order
         </Button>
       </Box>
+      <MyMap
+      />
     </Box>
+    
   );
 }
 

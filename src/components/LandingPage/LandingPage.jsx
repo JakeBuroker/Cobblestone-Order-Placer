@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
+import MyMap from '../MyMap/MyMap';
 
-// CUSTOM COMPONENTS
-import RegisterForm from '../RegisterForm/RegisterForm';
 
 function LandingPage() {
   const [heading, setHeading] = useState('Welcome');
@@ -30,7 +29,6 @@ function LandingPage() {
             Quisque eget eros metus. Vestibulum bibendum fringilla nibh a
             luctus. Duis a sapien metus.
           </p>
-
           <p>
             Praesent consectetur orci dui, id elementum eros facilisis id. Sed
             id dolor in augue porttitor faucibus eget sit amet ante. Nunc
