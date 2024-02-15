@@ -66,7 +66,7 @@ function UserPage() {
     );
 
   return (
-    <Box sx={{ padding: "20px" }}>
+    <Box sx={{ padding: "25px" }}>
       <Typography variant="h4" align="center" gutterBottom>
         Welcome, {user.username}!
       </Typography>
@@ -74,12 +74,12 @@ function UserPage() {
         Your ID is: {user.id}
       </Typography>
 
-      <Typography variant="h5" gutterBottom>
+      <Typography paddingLeft="190px" variant="h5" gutterBottom>
         Order History
       </Typography>
 
       {/* Maps user orders */}
-      <List sx={{ width: "30%" }}>
+      <List sx={{ paddingLeft:"65px" , width: "30%" }}>
         {userOrders.map((order) => (
           <ListItem
             key={order.order_id}

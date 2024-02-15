@@ -39,6 +39,7 @@ router.post("/create-checkout-session", async (req, res) => {
       mode: "payment",
       success_url: successUrl,
       cancel_url: cancelUrl,
+      automatic_tax: {enabled: true}
     });
 
     // Send session ID back to the client.

@@ -139,7 +139,7 @@ function Admin() {
     <div style={{ height: 400, width: "100%" }}>
       <h1>Admin</h1>
 
-      {/* Renders the admin panel including the DataGrid and a Dialog for detailed order view. */} 
+      {/* Renders the admin panel including the DataGrid and a Dialog for detailed order view. */}
       <DataGrid
         rows={rows}
         columns={columns}
@@ -149,11 +149,10 @@ function Admin() {
         disableSelectionOnClick
       />
 
-    {/* Dialog opens based on modalOpen state */}
+      {/* Dialog opens based on modalOpen state */}
       <Dialog open={modalOpen} onClose={closeModal}>
         <DialogContent>
-
-         {/* Checks if item is selected and displays its details */}
+          {/* Checks if item is selected and displays its details */}
           {selectedItem && (
             <div>
               <Typography variant="h5">
@@ -164,11 +163,22 @@ function Admin() {
                 >
                   <AssignmentTurnedInIcon />
                 </button>
-
-          {/* Maps selected item order details */}
+                {/* Maps selected item order details */}
               </Typography>
               {selectedDetails.map((detail, index) => (
-                <Typography key={index} variant="body1">
+                <Typography
+                  style={{
+                    paddingTop: "10px",
+                    overflow: "hidden",
+                    padding: "20px",
+                    fontSize: "120%",
+                    borderRadius: "10px",
+                    height: "75px",
+                    border: "solid black 1px",
+                  }}
+                  key={index}
+                  variant="body1"
+                >
                   Item: {detail.name}, Quantity: {detail.quantity}, Price: $
                   {detail.price}
                 </Typography>
