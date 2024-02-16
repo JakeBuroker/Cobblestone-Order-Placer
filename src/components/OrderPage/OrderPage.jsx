@@ -26,7 +26,7 @@ function OrderPage() {
   const categories = useSelector((store) => store.categories);
   const cartCount = useSelector((store) => store.cartCount);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState("all");
 
@@ -83,24 +83,24 @@ function OrderPage() {
       });
   };
 
-  const handleCategoryChange = (event, newValue) => {
-    setSelectedCategories(newValue);
-    if (newValue === "all") {
+  const handleCategoryChange = (event, newCategory) => {
+    setSelectedCategories(newCategory);
+    if (newCategory === "all") {
       fetchMenu();
     } else {
-      fetchMenuCategories(newValue);
+      fetchMenuCategories(newCategory);
     }
   };
 
   // Open details modal
   const openModal = (item) => {
     setSelectedItem(item); // Sets the item to be detailed in the modal
-    setModalOpen(true);
+    setDetailsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const detailsModalClose = () => {
     setSelectedItem(null);
-    setModalOpen(false);
+    setDetailsModalOpen(false);
   };
 
   const closeDrawer = () => {
@@ -139,7 +139,7 @@ function OrderPage() {
       }}
     >
       {/* Category selection */}
-      <div style={{ paddingLeft: "15px", textAlign: "center", width: "13.5%" }}>
+      <div style={{ paddingLeft: "15px", textAlign: "center", width: "16%" }}>
         <Typography variant="h6" sx={{ marginBottom: 2 }}>
           <b>Categories</b>
         </Typography>
@@ -390,11 +390,11 @@ function OrderPage() {
       </Drawer>
 
       {/* Details modal */}
-      <Dialog  style={{ borderRadius: '10px'}} open={modalOpen} onClose={closeModal}>
+      <Dialog  style={{ borderRadius: '10px'}} open={detailsModalOpen} onClose={detailsModalClose}>
         <DialogContent style={{ paddingTop: '15px', borderRadius: '10px', backgroundColor: 'hsl(60, 73%, 93%)'}}>
           {selectedItem && (
             <div>
-            <ClearIcon style={{ cursor: 'pointer'}} onClick={() => setModalOpen(false)}>X</ClearIcon>
+            <ClearIcon style={{ cursor: 'pointer'}} onClick={() => setDetailsModalOpen(false)}>X</ClearIcon>
             <Typography style={{ paddingBottom: '20px', fontSize: "180%", textAlign: "center", width: "450px"}} variant="h5">${selectedItem.price} {selectedItem.name}  </Typography>
               <img
              style={{ width: "450px", height: "300px", objectFit: "cover", border: "solid black 2px" }}
