@@ -15,6 +15,7 @@ import {
 import InfoIcon from "@mui/icons-material/Info";
 import CheckCircleOutline from "@mui/icons-material/CheckCircleOutline";
 import HourglassEmpty from "@mui/icons-material/HourglassEmpty";
+import ClearIcon from '@mui/icons-material/Clear';
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -124,33 +125,37 @@ function UserPage() {
       </List>
 
       {/* Details modal that opens based on 'modalOpen' state */}
-      <Dialog open={modalOpen} onClose={closeModal} maxWidth="sm" fullWidth>
-        <DialogContent>
-          {selectedItem && (
-            <>
-              <Typography variant="h6" gutterBottom>
-                Order Details for {selectedItem.firstName}{" "}
-                {selectedItem.lastName}
-              </Typography>
-              {selectedDetails.map((detail, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    borderBottom: "1px solid #e0e0e0",
-                    paddingBottom: 2,
-                    marginBottom: 2,
-                  }}
-                >
-                  <Typography variant="body1" gutterBottom>
-                    Item: {detail.name}, Quantity: {detail.quantity}, Price: $
-                    {detail.price}
-                  </Typography>
-                </Box>
-              ))}
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+      <Dialog open={modalOpen} onClose={closeModal}>
+  <ClearIcon onClick={closeModal} style={{ cursor: 'pointer', position: 'absolute', left: '10px', top: '10px' }} />
+  <DialogContent style={{ backgroundColor: "hsl(60, 73%, 93%)", height: 'auto', maxHeight: '80vh', width: '90%', overflow: 'auto', borderRadius: '10px' }}>
+    {/* Checks if item is selected and displays its details */}
+    {selectedItem && (
+      <div>
+        <Typography style={{ paddingLeft: "185px", paddingBottom: "10px", display: 'flex', alignItems: 'center', flexWrap: 'wrap' }} variant="h5">
+          Order #{selectedItem.order_id}
+        </Typography>
+        {selectedDetails.map((detail, index) => (
+          <Typography
+            style={{
+              paddingRight: "35px",
+              overflow: "hidden",
+              padding: "20px 50px",
+              fontSize: "105%",
+              borderRadius: "10px",
+              border: "solid black 1px",
+              margin: '10px 65px', // Added margin for better spacing
+              display: 'block' // Ensure each detail is on its own line
+            }}
+            key={index}
+            variant="body1"
+          >
+            {detail.name}, Quantity: {detail.quantity} ${detail.price}
+          </Typography>
+        ))}
+      </div>
+    )}
+  </DialogContent>
+</Dialog>
     </Box>
   );
 }

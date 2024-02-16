@@ -21,6 +21,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { url } from "../App/ApiConfig";
 
 
+
 function CheckoutPage() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -108,7 +109,12 @@ function CheckoutPage() {
       .then(() => {
         dispatch({ type: "RESET" });
         history.push("/checkout-success");
-        alert("Order placed successfully!");
+        Swal.fire({
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1200,
+          confirmButtonColor: '#027662'
+        });
       })
       .catch((error) => {
         alert("Error submitting order: " + error.message);

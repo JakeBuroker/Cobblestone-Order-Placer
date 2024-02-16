@@ -7,7 +7,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { CheckCircleOutline, HourglassEmpty } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
-import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 function Admin() {
@@ -62,6 +63,7 @@ function Admin() {
       .put(`/api/orders/${orderId}`)
       .then(() => {
         fetchOrders();
+        alert("Complete!")
       })
       .catch((error) => {
         console.error("Error updating order:", error);
@@ -111,13 +113,13 @@ function Admin() {
         <div>
           <button
             onClick={() => openModal(params.row)}
-            style={{ marginRight: "5px", backgroundColor: "hsl(60, 73%, 98%)" }}
+            style={{ cursor:"pointer", marginRight: "5px", backgroundColor: "hsl(60, 73%, 98%)" }}
           >
             <InfoIcon />
           </button>
           <button
             onClick={() => deleteOrder(params.id)}
-            style={{ marginRight: "5px", backgroundColor: "hsl(60, 73%, 98%)" }}
+            style={{cursor:"pointer", marginRight: "5px", backgroundColor: "hsl(60, 73%, 98%)" }}
           >
             <DeleteIcon />
           </button>
@@ -150,43 +152,43 @@ function Admin() {
       />
 
       {/* Dialog opens based on modalOpen state */}
-      <Dialog open={modalOpen} onClose={closeModal}>
-        <DialogContent>
-          {/* Checks if item is selected and displays its details */}
-          {selectedItem && (
-            <div>
-              <Typography variant="h5">
-                {selectedItem.firstName} {selectedItem.lastName}
-                <button
-                  onClick={() => editOrder(selectedItem.id)}
-                  style={{ marginLeft: "20px" }}
-                >
-                  <AssignmentTurnedInIcon />
-                </button>
-                {/* Maps selected item order details */}
-              </Typography>
-              {selectedDetails.map((detail, index) => (
-                <Typography
-                  style={{
-                    paddingTop: "10px",
-                    overflow: "hidden",
-                    padding: "20px",
-                    fontSize: "120%",
-                    borderRadius: "10px",
-                    height: "75px",
-                    border: "solid black 1px",
-                  }}
-                  key={index}
-                  variant="body1"
-                >
-                  Item: {detail.name}, Quantity: {detail.quantity}, Price: $
-                  {detail.price}
-                </Typography>
-              ))}
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+{/* Dialog opens based on modalOpen state */}
+<Dialog open={modalOpen} onClose={closeModal}>
+  <ClearIcon onClick={closeModal} style={{ cursor: 'pointer', position: 'absolute', left: '10px', top: '10px' }} />
+  <DialogContent style={{ backgroundColor: "hsl(60, 73%, 93%)", height: 'auto', maxHeight: '80vh', width: '90%', overflow: 'auto', borderRadius: '10px' }}>
+    {/* Checks if item is selected and displays its details */}
+    {selectedItem && (
+      <div>
+        <Typography style={{ paddingLeft: "65px", paddingBottom: "20px", display: 'flex', alignItems: 'center', flexWrap: 'wrap' }} variant="h5">
+          {selectedItem.firstName} {selectedItem.lastName}
+          <span style={{ display: 'flex', height:"42px", width:"150px", border: 'solid black 1px', alignItems: 'center', marginLeft: 'auto', marginRight: '65px', cursor: 'pointer', borderRadius: '15px' }} onClick={() => editOrder(selectedItem.id)}>
+            <CheckCircleIcon style={{ fontSize: "120%" }} />
+            <span style={{ marginLeft: '10px',   }}>Complete</span>
+          </span>
+        </Typography>
+        {selectedDetails.map((detail, index) => (
+          <Typography
+            style={{
+              paddingRight: "35px",
+              overflow: "hidden",
+              padding: "20px 50px",
+              fontSize: "105%",
+              borderRadius: "10px",
+              border: "solid black 1px",
+              margin: '10px 65px', // Added margin for better spacing
+              display: 'block' // Ensure each detail is on its own line
+            }}
+            key={index}
+            variant="body1"
+          >
+            {detail.name}, Quantity: {detail.quantity} ${detail.price}
+          </Typography>
+        ))}
+      </div>
+    )}
+  </DialogContent>
+</Dialog>
+
     </div>
   );
 }

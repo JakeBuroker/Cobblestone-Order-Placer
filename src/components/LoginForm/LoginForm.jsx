@@ -24,7 +24,7 @@ function LoginForm() {
   };
 
   return (
-    <form className="formPanel" onSubmit={login}>
+    <form   className="formPanel" onSubmit={login}>
       <h2>Login</h2>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
@@ -34,7 +34,7 @@ function LoginForm() {
       <div>
         <label htmlFor="username">
           Username:
-          <input
+          <input 
             type="text"
             name="username"
             required
