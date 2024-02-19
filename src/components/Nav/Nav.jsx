@@ -3,16 +3,18 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
+import logo from '/images/logo.png'
 
 
 function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
-    <div className="nav">
-      <Link to="/home">
+  <div className="nav">
+      <img src={`/images/logo.png`} alt="Cobblestone Cafe Logo" className="nav-logo" />
+    <Link to="/home">
         <h2 className="nav-title">Cobblestone Cafe</h2>
-      </Link>
+    </Link>
 
       <Link className="navLink" to="/">
         Home
@@ -48,7 +50,7 @@ function Nav() {
             style={{
               alignItems: "end",
               display: "flex-end",
-              marginRight: "3px",
+          
             }}
           >
             {user.username}

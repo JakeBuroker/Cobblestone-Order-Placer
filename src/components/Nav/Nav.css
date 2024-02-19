@@ -1,16 +1,22 @@
 .nav {
   display: flex;
   align-items: center;
-  height: 60px;
+  height: 75px;
   background-color: hsl(60, 73%, 93%);
   overflow: hidden;
-  border-bottom: solid 1px black;
+  border-bottom: solid 1.5px black;
 }
 
-/* Flex container for the left-aligned items in the nav bar. */
+
 .nav-left {
   display: flex;
   align-items: center;
+}
+
+.nav-logo {
+  height: 90px;
+  width: 90px;
+
 }
 
 .nav a {
@@ -18,25 +24,26 @@
 }
 
 .nav-title {
-  font-size: 215%;
+  font-size: 225%;
   font-weight: 700;
-  color: #027662;
-  padding-left: 37.5px;
-  margin-top: 22.5px;
+  color: hsl(170, 99%, 27%);
+  margin-top: 30px;
 }
 
 .navLink {
   display: inline-block;
-  color: #027662;
+  color: hsl(170, 99%, 27%);
   background-color: hsl(60, 73%, 93%);
   text-align: center;
   padding: 10px 3px;
-  margin-top: 2px;
+  margin-top: 9.5px;
   font-size: 23px;
-  margin-left: 30px;
+  margin-left: 25px;
   border: none;
   cursor: pointer;
   outline: 0;
+  font-family: Helvetica;
+  font-weight: 600;
 }
 
 .navLink:hover {

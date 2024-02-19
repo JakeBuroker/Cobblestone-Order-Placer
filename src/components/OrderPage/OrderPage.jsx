@@ -66,7 +66,7 @@ function OrderPage() {
       })
       .catch((error) => {
         console.error("Error fetching menu items by category:", error);
-        alert("Could not fetch menu items for the selected category.");
+
       });
   };
 
@@ -79,7 +79,6 @@ function OrderPage() {
       })
       .catch((error) => {
         console.error(error);
-        alert("Could not fetch menu! It is broken");
       });
   };
 
@@ -94,7 +93,7 @@ function OrderPage() {
 
   // Open details modal
   const openModal = (item) => {
-    setSelectedItem(item); // Sets the item to be detailed in the modal
+    setSelectedItem(item); // Sets the item details in the modal
     setDetailsModalOpen(true);
   };
 

@@ -19,9 +19,9 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 function UserPage() {
   const dispatch = useDispatch();
-  const userOrders = useSelector((state) => state.userOrders);
-  const details = useSelector((state) => state.details);
-  const user = useSelector((state) => state.user);
+  const userOrders = useSelector((store) => store.userOrders);
+  const details = useSelector((store) => store.details);
+  const user = useSelector((store) => store.user);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedDetails, setSelectedDetails] = useState([]);
@@ -75,12 +75,12 @@ function UserPage() {
         Your ID is: {user.id}
       </Typography>
 
-      <Typography paddingLeft="190px" variant="h5" gutterBottom>
+      <Typography paddingLeft="205px" variant="h5" gutterBottom>
         Order History
       </Typography>
 
       {/* Maps user orders */}
-      <List sx={{ paddingLeft:"65px" , width: "30%" }}>
+      <List sx={{ paddingLeft:"75px" , width: "30%" }}>
         {userOrders.map((order) => (
           <ListItem
             key={order.order_id}
@@ -143,8 +143,8 @@ function UserPage() {
               fontSize: "105%",
               borderRadius: "10px",
               border: "solid black 1px",
-              margin: '10px 65px', // Added margin for better spacing
-              display: 'block' // Ensure each detail is on its own line
+              margin: '10px 65px',
+              display: 'block' 
             }}
             key={index}
             variant="body1"

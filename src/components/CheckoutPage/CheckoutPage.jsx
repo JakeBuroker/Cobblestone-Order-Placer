@@ -38,17 +38,14 @@ function CheckoutPage() {
   const handleStripePayment = async (cart) => {
     // Initialize Stripe with your public API key.
     const stripe = await loadStripe("pk_live_51OgHgJIXKk2b7Ne9u5fAxNLViJbGPOM2rRpx4hwJwfLKZX6HLcHVLZcEBTMjurQlNnxRx5jlLUxD2CGIR8Aa3RId00KK7bqY5Y");
-
     const body = {
       products: cart,
     };
-
     // Set up headers for the request, including the auth token and content type
     const headers = {
       "x-auth-token": localStorage.getItem("token"), // Retrieve auth token stored in localStorage
       "Content-Type": "application/json", // Specify the content type as JSON
     };
-
     try {
       // Make a POST request to your server endpoint to create a Stripe checkout session
       const response = await fetch(`${url}/stripe/create-checkout-session`, {
@@ -56,20 +53,16 @@ function CheckoutPage() {
         headers: headers,
         body: JSON.stringify(body),
       });
-
       // Throw an error with the HTTP status to handle it accordingly
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       // Parse the JSON response to get the Stripe session ID
       const session = await response.json();
-
       // Redirect the user to Stripe's checkout page using the session ID
       const result = await stripe.redirectToCheckout({
         sessionId: session.id,
       });
-
       // Check if there's an error with the Stripe redirect and log it
       if (result.error) {
         console.log(result.error.message);
@@ -91,6 +84,10 @@ function CheckoutPage() {
   };
 
   const submitOrder = () => {
+    if (cart.length === 0) {    
+   return alert("Empty cart!") }
+   if (!firstName, !lastName, !phone) {    
+    return alert("fill out required fields!") }
     const newOrder = {
       firstName,
       lastName,
@@ -104,6 +101,7 @@ function CheckoutPage() {
         notes: item.notes || "",
       })),
     };
+    
     axios
       .post("/api/orders", newOrder)
       .then(() => {

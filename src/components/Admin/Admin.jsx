@@ -9,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ClearIcon from "@mui/icons-material/Clear";
+import Button from "@mui/material/Button";
 
 
 function Admin() {
@@ -260,9 +261,17 @@ function Admin() {
         {/* Delete modal */}
       </Dialog>
       <Dialog open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
-        <DialogContent>
-          <Typography>Are you sure you want to delete this item?</Typography>
-          <button
+        <DialogContent  style={{ backgroundColor: "hsl(60, 73%, 93%)"}} >
+          <Typography   style={{
+                    paddingRight: "35px",
+                    overflow: "hidden",
+                    padding: "20px 50px",
+                    fontSize: "105%",
+                    margin: "10px 65px",
+                    display: "block",
+                  }}
+                  >Are you sure you want to delete?</Typography>
+          <Button
             onClick={() => {
               deleteOrder(selectedItem.id);
               setDeleteModalOpen(false);
@@ -270,8 +279,8 @@ function Admin() {
             }}
           >
             Yes
-          </button>
-          <button onClick={() => setDeleteModalOpen(false)}>No</button>
+          </Button>
+          <Button onClick={() => setDeleteModalOpen(false)}>No</Button>
         </DialogContent>
       </Dialog>
 
@@ -280,12 +289,21 @@ function Admin() {
         open={completeModalOpen}
         onClose={() => setCompleteModalOpen(false)}
       >
-        <DialogContent>
-          <Typography>
-            Are you sure you want to mark this item as complete?
+        <DialogContent style={{ backgroundColor: "hsl(60, 73%, 93%)"}}
+        >
+          <Typography
+             style={{
+                    paddingRight: "35px",
+                    overflow: "hidden",
+                    padding: "20px 50px",
+                    fontSize: "105%",
+                    margin: "10px 65px",
+                    display: "block",
+                  }}>
+            Are you sure you want to mark complete?
           </Typography>
-          <button onClick={() => editOrder(selectedItem.id)}>Yes</button>
-          <button onClick={() => setCompleteModalOpen(false)}>No</button>
+          <Button onClick={() => editOrder(selectedItem.id)}>Yes</Button>
+          <Button onClick={() => setCompleteModalOpen(false)}>No</Button>
         </DialogContent>
       </Dialog>
     </div>

@@ -1,19 +1,49 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import "./LandingPage.css";
-
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import './LandingPage.css';
+import MyMap from '/src/components/MyMap/MyMap';
+import homejpg from '/images/Home.jpg';
+import { Button } from '@mui/material';
 
 function LandingPage() {
-  const [heading, setHeading] = useState("Welcome");
   const history = useHistory();
 
-  const onLogin = (event) => {
-    history.push("/login");
-  };
 
   return (
     <div className="container">
-      <h2>{heading}</h2>
-</div>)}
+      {/* Left Section */}
+      <div className="left-section">
+
+        <img src={homejpg} alt="Home" className="home-jpg" />
+        {/* Brief Biography Section */}
+        <div className="bio-container">
+        
+
+        </div>
+        {/* Reviews Section */}
+        <div className="reviews-container">
+        <b> <p  style={{marginTop: "3%"}}>"It Doesn't Get Any More Charming Than Cobblestone Cafe, A Downtown Eatery In White Bear Lake, Minnesota"</p></b>
+        <p style={{ fontSize: "85%" }}>
+  - Betsy Rathburn, at <a href="https://www.onlyinyourstate.com/minnesota/cobblestone-cafe-mn/" style={{ color: "#087c69" }}>onlyinyourstate.com</a>
+</p>
+        </div>
+      </div>
+      {/* Right Section */}
+      <div className="right-section">
+      
+        {/* Café hours */}
+        <div className="hours-container">
+          <h4>Open Everyday</h4>
+          <p>7:00 AM - 2:00 PM</p>
+        </div>
+        {/* GPS Section */}
+        <div className="map-container">
+          <h3>Find Us Here</h3>
+          <MyMap width={450} height={350} />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default LandingPage;
