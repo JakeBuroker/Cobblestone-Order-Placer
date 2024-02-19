@@ -35,10 +35,10 @@ function OrderPlacedPage() {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "black",
-            color: "white",
+            backgroundColor: "hsl(60, 73%, 95%)",
+            color: "#087c69",
             "&:hover": {
-              backgroundColor: "#333",
+              backgroundColor: "white",
             },
           }}
           onClick={() => history.push("/home")}
@@ -50,7 +50,7 @@ function OrderPlacedPage() {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "#035a4c",
+            backgroundColor: "#087c69",
             color: "white",
             "&:hover": {
               backgroundColor: "#065a52",

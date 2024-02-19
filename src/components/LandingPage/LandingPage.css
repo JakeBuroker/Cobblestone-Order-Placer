@@ -8,13 +8,13 @@ Grid
 
 .left-section {
   padding-top: 1.5%;
-  padding-left: 2%;
+  padding-left: 2.5%;
   flex: 2;
   margin-right: 5%;
 }
 
 .right-section {
-  flex: 1;
+  flex: 1.225;
   margin-left: 0%;
 }
 

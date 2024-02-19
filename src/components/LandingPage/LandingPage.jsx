@@ -24,7 +24,7 @@ function LandingPage() {
         <div className="reviews-container">
         <b> <p  style={{marginTop: "3%"}}>"It Doesn't Get Any More Charming Than Cobblestone Cafe, A Downtown Eatery In White Bear Lake, Minnesota"</p></b>
         <p style={{ fontSize: "85%" }}>
-  - Betsy Rathburn, at <a href="https://www.onlyinyourstate.com/minnesota/cobblestone-cafe-mn/" style={{ color: "#087c69" }}>onlyinyourstate.com</a>
+  - Betsy Rathburn, at <a href="https://www.onlyinyourstate.com/minnesota/cobblestone-cafe-mn/" style={{ color: "#018972" }}>onlyinyourstate.com</a>
 </p>
         </div>
       </div>

@@ -257,7 +257,7 @@ function OrderPage() {
                       sx={{
                         borderRadius: "20px",
                         cursor: "pointer",
-                        color: "#027662",
+                        color: "#087c69",
                         fontWeight: "bold",
                         "&:hover": {
                           backgroundColor: "hsl(60, 73%, 95%)",
@@ -271,7 +271,7 @@ function OrderPage() {
                       sx={{
                         borderRadius: "20px",
                         cursor: "pointer",
-                        backgroundColor: "#027662;",
+                        backgroundColor: "#018972",
                         color: "white",
                         fontWeight: "bold",
                         "&:hover": {
@@ -297,7 +297,7 @@ function OrderPage() {
           sx: {
             width: "20%",
             fontSize: "1rem",
-            backgroundColor: "#087c69",
+            backgroundColor: "#018972",
             color: "white",
           },
         }}
@@ -317,7 +317,7 @@ function OrderPage() {
             fontWeight: "bold",
             color: "white",
             paddingTop: "10px",
-            backgroundColor: "#087c69",
+            backgroundColor: "#018972",
           }}
         >
           Cart
@@ -421,7 +421,7 @@ function OrderPage() {
           onClick={() => setDrawerOpen(true)}
           sx={{
             cursor: "pointer",
-            color: "#027662",
+            color: "#018972",
             fontSize: "3rem",
             "&:hover": {
               borderRadius: "10px 10px 10px 10px",
