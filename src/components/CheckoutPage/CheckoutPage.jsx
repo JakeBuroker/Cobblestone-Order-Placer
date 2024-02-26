@@ -18,7 +18,7 @@ import {
 import LoadingButton from '@mui/lab/LoadingButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { loadStripe } from '@stripe/stripe-js';
-import { url } from "../App/ApiConfig";
+// import { url } from "../App/ApiConfig";
 
 
 
@@ -37,7 +37,7 @@ function CheckoutPage() {
 
   const handleStripePayment = async (cart) => {
     // Initialize Stripe with your public API key.
-    const stripe = await loadStripe("pk_live_51OgHgJIXKk2b7Ne9u5fAxNLViJbGPOM2rRpx4hwJwfLKZX6HLcHVLZcEBTMjurQlNnxRx5jlLUxD2CGIR8Aa3RId00KK7bqY5Y");
+    // const stripe = await loadStripe("");
     const body = {
       products: cart,
     };
