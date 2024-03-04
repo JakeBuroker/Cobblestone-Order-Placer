@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import logo from '/images/logo.png'
 
 
 function Nav() {
@@ -11,7 +10,7 @@ function Nav() {
 
   return (
   <div className="nav">
-      <img src={`/images/logo.png`} alt="Cobblestone Cafe Logo" className="nav-logo" />
+      <img  src={`https://cobblestone-order-placer.s3.amazonaws.com/images/logo.png`} alt="Cobblestone Cafe Logo" className="nav-logo" />
     <Link to="/home">
         <h2 className="nav-title">Cobblestone Cafe</h2>
     </Link>

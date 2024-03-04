@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 import MyMap from '/src/components/MyMap/MyMap';
-import homejpg from '/images/Home.jpg';
 import { Button } from '@mui/material';
 
 function LandingPage() {
@@ -14,7 +13,7 @@ function LandingPage() {
       {/* Left Section */}
       <div className="left-section">
 
-        <img src={homejpg} alt="Home" className="home-jpg" />
+        <img src={`https://cobblestone-order-placer.s3.amazonaws.com/images/Home.jpg`} alt="Home" className="home-jpg" />
         {/* Brief Biography Section */}
         <div className="bio-container">
         

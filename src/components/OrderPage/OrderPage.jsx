@@ -397,7 +397,7 @@ function OrderPage() {
             <Typography style={{ paddingBottom: '20px', fontSize: "180%", textAlign: "center", width: "450px"}} variant="h5">${selectedItem.price} {selectedItem.name}  </Typography>
               <img
              style={{ width: "450px", height: "300px", objectFit: "cover", border: "solid black 2px" }}
-                src={`/images/${selectedItem.url}`}
+             src={`https://cobblestone-order-placer.s3.amazonaws.com/${selectedItem.url}`} 
                 alt="item image"
               />
                <Typography    style={{paddingTop: '10px', overflow: 'hidden', padding: '20px', fontSize: '120%', borderRadius: '10px', height: "75px", border: "solid black 1px" }} variant="h5">{selectedItem.description} </Typography>
