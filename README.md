@@ -27,7 +27,7 @@ The application provides a comprehensive dashboard for efficient order managemen
 
 ## Access the Deployed Application
 
-Experience the Cobblestone Order Placer by visiting our live site: [Cobblestone Cafe Order Placer](https://cobblestone-cafe-e2cd55d0a8a4.herokuapp.com/)
+Experience the Cobblestone Order Placer Here: [Cobblestone Cafe Order Placer](https://cobblestone-cafe-e2cd55d0a8a4.herokuapp.com/)
 
 ## Local Development Setup
 
@@ -36,10 +36,6 @@ Experience the Cobblestone Order Placer by visiting our live site: [Cobblestone 
 3. Install dependencies with `npm install`.
 4. Set up your PostgreSQL database with the provided `database.sql` script.
 5. Start the application with `nodemon` and access it at `http://localhost:3000`.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 ## Contact
 
