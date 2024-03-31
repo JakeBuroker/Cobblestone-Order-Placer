@@ -39,5 +39,8 @@ Experience the Cobblestone Order Placer Here: [Cobblestone Cafe Order Placer](ht
 
 ## Contact
 
-For any inquiries or suggestions, reach out to us at JakeTBuroker@gmail.com.
+For any inquiries or suggestions regarding this project, feel free to reach out to me!
+
+[![Linkedin: JakeBuroker](https://img.shields.io/badge/-JakeBuroker-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/jakeburoker/)](https://www.linkedin.com/in/jakeburoker/)
+[![Gmail: JakeTBuroker](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:JakeTBuroker@gmail.com)
 
